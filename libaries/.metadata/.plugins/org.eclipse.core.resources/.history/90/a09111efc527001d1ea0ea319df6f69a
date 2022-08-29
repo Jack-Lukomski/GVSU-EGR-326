@@ -1,0 +1,11 @@
+#include "GVSU_GPIO.h"
+/*
+ * GVSU_GPIO.c
+ *
+ *  Created on: Aug 29, 2022
+ *      Author: jtluk
+ */
+void vGPIO_setPinNumber(s_GVSU_GPIO * s_userGPIO_ptr, e_GPIO_pinNumber e_userPinNumber)
+{
+    s_userGPIO_ptr->e_pinNumber = e_userPinNumber;
+}

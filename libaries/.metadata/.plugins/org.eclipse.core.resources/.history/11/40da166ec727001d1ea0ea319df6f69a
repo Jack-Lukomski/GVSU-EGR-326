@@ -1,0 +1,40 @@
+#include "GVSU_GPIO.h"
+/*
+ * GVSU_GPIO.c
+ *
+ *  Created on: Aug 29, 2022
+ *      Author: jtluk
+ */
+void vGPIO_setPinNumber(s_GVSU_GPIO * s_userGPIO_ptr, GPIO_pinNumber_t e_userPinNumber)
+{
+    s_userGPIO_ptr->e_pinNumber = e_userPinNumber;
+}
+
+void vGPIO_setPort(s_GVSU_GPIO * s_userGPIO_ptr, GPIO_portNumber_t e_userPortNumber)
+{
+    s_userGPIO_ptr->e_portNumber = e_userPortNumber;
+}
+
+void vGPIO_setIO(s_GVSU_GPIO * s_userGPIO_ptr, GPIO_IO_t e_userIOType);
+{
+    s_userGPIO_ptr->e_IO = e_userIOType;
+}
+
+GPIO_status_t vGPIO_InitlizePinGPIO(s_GVSU_GPIO * s_userGPIO_ptr)
+{
+    GPIO_status_t e_retVal = status_failure;
+
+    if (s_userGPIO_ptr->e_IO == input)
+    {
+
+    }
+    else if (s_userGPIO_ptr->e_IO == output)
+    {
+
+    }
+    else
+    {
+
+    }
+
+}
