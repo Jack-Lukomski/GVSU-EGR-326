@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Rename resource &apos;GVSU_GPIO/GVSU_GPIO&apos; to &apos;GVSU_GPIO.h&apos;" description="Rename resource &apos;GVSU_GPIO&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="GVSU_GPIO" name="GVSU_GPIO.h" stamp="1661795018757" updateReferences="true"/>
-</session>

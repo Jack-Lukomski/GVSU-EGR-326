@@ -1,0 +1,31 @@
+output/test.o: test.c C:\ti\msp432_gcc/arm/include/msp.h \
+ C:\ti\msp432_gcc/arm/include/msp432p401r.h \
+ c:\ti\msp432_gcc\arm_compiler\lib\gcc\arm-none-eabi\11.3.1\include\stdint.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\stdint.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\machine\_default_types.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\features.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\_newlib_version.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\_intsup.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\_stdint.h \
+ C:\ti\msp432_gcc/arm/include/msp_compatibility.h \
+ C:\ti\msp432_gcc/arm/include/msp432p401r_classic.h \
+ C:\ti\msp432_gcc/arm/include/CMSIS/core_cm4.h \
+ C:\ti\msp432_gcc/arm/include/CMSIS/cmsis_compiler.h \
+ C:\ti\msp432_gcc/arm/include/CMSIS/cmsis_gcc.h \
+ C:\ti\msp432_gcc/arm/include/system_msp432p401r.h \
+ ../../../libaries/GVSU_debouncer/debouncer.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\stdio.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\_ansi.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\newlib.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\config.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\machine\ieeefp.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\cdefs.h \
+ c:\ti\msp432_gcc\arm_compiler\lib\gcc\arm-none-eabi\11.3.1\include\stddef.h \
+ c:\ti\msp432_gcc\arm_compiler\lib\gcc\arm-none-eabi\11.3.1\include\stdarg.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\reent.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\_ansi.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\_types.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\machine\_types.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\lock.h \
+ c:\ti\msp432_gcc\arm_compiler\arm-none-eabi\include\sys\stdio.h \
+ c:\ti\msp432_gcc\arm_compiler\lib\gcc\arm-none-eabi\11.3.1\include\stdbool.h

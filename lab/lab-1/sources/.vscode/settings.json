@@ -1,0 +1,48 @@
+{
+    "files.associations": {
+        "stdio.h": "c",
+        "math.h": "c",
+        "string.h": "c",
+        "string_j.h": "c"
+    },
+
+    "editor.tokenColorCustomizations" : {
+        "textMateRules": [
+            {
+                "scope" : "emphasis",
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope" : "strong",
+
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope" : "keyword.control",
+
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope" : "variable.parameter",
+
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            },
+            {
+                "scope" : "comment",
+
+                "settings": {
+                    "fontStyle": "italic"
+                }
+            }
+        ]
+    },
+    "C_Cpp.errorSquiggles": "Disabled"
+}
