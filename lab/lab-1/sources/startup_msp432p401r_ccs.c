@@ -36,21 +36,18 @@
 
 #include <stdint.h>
 
-/* Entry point for the application. */
-extern int _mainCRTStartup();
+/* Linker variable that marks the top of the stack. */
+extern unsigned long __STACK_END;
+
+/* External declaration for the reset handler that is to be called when the */
+/* processor is started                                                     */
+extern void _c_int00(void);
 
 /* External declaration for system initialization function                  */
 extern void SystemInit(void);
 
-extern uint32_t __data_load__;
-extern uint32_t __data_start__;
-extern uint32_t __data_end__;
-extern uint32_t __StackTop;
-
-typedef void( *pFunc )( void );
-
 /* Forward declaration of the default fault handlers. */
-void Default_Handler(void);
+void Default_Handler            (void) __attribute__((weak));
 extern void Reset_Handler       (void) __attribute__((weak));
 
 /* Cortex-M4 Processor Exceptions */
@@ -110,9 +107,11 @@ extern void PORT6_IRQHandler    (void) __attribute__((weak,alias("Default_Handle
 /* Interrupt vector table.  Note that the proper constructs must be placed on this to */
 /* ensure that it ends up at physical address 0x0000.0000 or at the start of          */
 /* the program if located at a start address other than 0.                            */
-void (* const interruptVectors[])(void) __attribute__ ((section (".intvecs"))) =
+#pragma RETAIN(interruptVectors)
+#pragma DATA_SECTION(interruptVectors, ".intvecs")
+void (* const interruptVectors[])(void) =
 {
-    (pFunc)&__StackTop,
+    (void (*)(void))((uint32_t)&__STACK_END),
                                            /* The initial stack pointer */
     Reset_Handler,                         /* The reset handler         */
     NMI_Handler,                           /* The NMI handler           */
@@ -129,47 +128,47 @@ void (* const interruptVectors[])(void) __attribute__ ((section (".intvecs"))) =
     0,                                     /* Reserved                  */
     PendSV_Handler,                        /* The PendSV handler        */
     SysTick_Handler,                       /* The SysTick handler       */
-    PSS_IRQHandler,                        /* PSS ISR                   */
-    CS_IRQHandler,                         /* CS ISR                    */
-    PCM_IRQHandler,                        /* PCM ISR                   */
-    WDT_A_IRQHandler,                      /* WDT ISR                   */
-    FPU_IRQHandler,                        /* FPU ISR                   */
-    FLCTL_IRQHandler,                      /* FLCTL ISR                 */
-    COMP_E0_IRQHandler,                    /* COMP0 ISR                 */
-    COMP_E1_IRQHandler,                    /* COMP1 ISR                 */
-    TA0_0_IRQHandler,                      /* TA0_0 ISR                 */
-    TA0_N_IRQHandler,                      /* TA0_N ISR                 */
-    TA1_0_IRQHandler,                      /* TA1_0 ISR                 */
-    TA1_N_IRQHandler,                      /* TA1_N ISR                 */
-    TA2_0_IRQHandler,                      /* TA2_0 ISR                 */
-    TA2_N_IRQHandler,                      /* TA2_N ISR                 */
-    TA3_0_IRQHandler,                      /* TA3_0 ISR                 */
-    TA3_N_IRQHandler,                      /* TA3_N ISR                 */
-    EUSCIA0_IRQHandler,                    /* EUSCIA0 ISR               */
-    EUSCIA1_IRQHandler,                    /* EUSCIA1 ISR               */
-    EUSCIA2_IRQHandler,                    /* EUSCIA2 ISR               */
-    EUSCIA3_IRQHandler,                    /* EUSCIA3 ISR               */
-    EUSCIB0_IRQHandler,                    /* EUSCIB0 ISR               */
-    EUSCIB1_IRQHandler,                    /* EUSCIB1 ISR               */
-    EUSCIB2_IRQHandler,                    /* EUSCIB2 ISR               */
-    EUSCIB3_IRQHandler,                    /* EUSCIB3 ISR               */
-    ADC14_IRQHandler,                      /* ADC14 ISR                 */
-    T32_INT1_IRQHandler,                   /* T32_INT1 ISR              */
-    T32_INT2_IRQHandler,                   /* T32_INT2 ISR              */
-    T32_INTC_IRQHandler,                   /* T32_INTC ISR              */
-    AES256_IRQHandler,                     /* AES ISR                   */
-    RTC_C_IRQHandler,                      /* RTC ISR                   */
-    DMA_ERR_IRQHandler,                    /* DMA_ERR ISR               */
-    DMA_INT3_IRQHandler,                   /* DMA_INT3 ISR              */
-    DMA_INT2_IRQHandler,                   /* DMA_INT2 ISR              */
-    DMA_INT1_IRQHandler,                   /* DMA_INT1 ISR              */
-    DMA_INT0_IRQHandler,                   /* DMA_INT0 ISR              */
-    PORT1_IRQHandler,                      /* PORT1 ISR                 */
-    PORT2_IRQHandler,                      /* PORT2 ISR                 */
-    PORT3_IRQHandler,                      /* PORT3 ISR                 */
-    PORT4_IRQHandler,                      /* PORT4 ISR                 */
-    PORT5_IRQHandler,                      /* PORT5 ISR                 */
-    PORT6_IRQHandler                       /* PORT6 ISR                 */
+    PSS_IRQHandler,                        /* PSS Interrupt             */
+    CS_IRQHandler,                         /* CS Interrupt              */
+    PCM_IRQHandler,                        /* PCM Interrupt             */
+    WDT_A_IRQHandler,                      /* WDT_A Interrupt           */
+    FPU_IRQHandler,                        /* FPU Interrupt             */
+    FLCTL_IRQHandler,                      /* Flash Controller Interrupt*/
+    COMP_E0_IRQHandler,                    /* COMP_E0 Interrupt         */
+    COMP_E1_IRQHandler,                    /* COMP_E1 Interrupt         */
+    TA0_0_IRQHandler,                      /* TA0_0 Interrupt           */
+    TA0_N_IRQHandler,                      /* TA0_N Interrupt           */
+    TA1_0_IRQHandler,                      /* TA1_0 Interrupt           */
+    TA1_N_IRQHandler,                      /* TA1_N Interrupt           */
+    TA2_0_IRQHandler,                      /* TA2_0 Interrupt           */
+    TA2_N_IRQHandler,                      /* TA2_N Interrupt           */
+    TA3_0_IRQHandler,                      /* TA3_0 Interrupt           */
+    TA3_N_IRQHandler,                      /* TA3_N Interrupt           */
+    EUSCIA0_IRQHandler,                    /* EUSCIA0 Interrupt         */
+    EUSCIA1_IRQHandler,                    /* EUSCIA1 Interrupt         */
+    EUSCIA2_IRQHandler,                    /* EUSCIA2 Interrupt         */
+    EUSCIA3_IRQHandler,                    /* EUSCIA3 Interrupt         */
+    EUSCIB0_IRQHandler,                    /* EUSCIB0 Interrupt         */
+    EUSCIB1_IRQHandler,                    /* EUSCIB1 Interrupt         */
+    EUSCIB2_IRQHandler,                    /* EUSCIB2 Interrupt         */
+    EUSCIB3_IRQHandler,                    /* EUSCIB3 Interrupt         */
+    ADC14_IRQHandler,                      /* ADC14 Interrupt           */
+    T32_INT1_IRQHandler,                   /* T32_INT1 Interrupt        */
+    T32_INT2_IRQHandler,                   /* T32_INT2 Interrupt        */
+    T32_INTC_IRQHandler,                   /* T32_INTC Interrupt        */
+    AES256_IRQHandler,                     /* AES256 Interrupt          */
+    RTC_C_IRQHandler,                      /* RTC_C Interrupt           */
+    DMA_ERR_IRQHandler,                    /* DMA_ERR Interrupt         */
+    DMA_INT3_IRQHandler,                   /* DMA_INT3 Interrupt        */
+    DMA_INT2_IRQHandler,                   /* DMA_INT2 Interrupt        */
+    DMA_INT1_IRQHandler,                   /* DMA_INT1 Interrupt        */
+    DMA_INT0_IRQHandler,                   /* DMA_INT0 Interrupt        */
+    PORT1_IRQHandler,                      /* Port1 Interrupt           */
+    PORT2_IRQHandler,                      /* Port2 Interrupt           */
+    PORT3_IRQHandler,                      /* Port3 Interrupt           */
+    PORT4_IRQHandler,                      /* Port4 Interrupt           */
+    PORT5_IRQHandler,                      /* Port5 Interrupt           */
+    PORT6_IRQHandler                       /* Port6 Interrupt           */
 };
 
 /* Forward declaration of the default fault handlers. */
@@ -181,31 +180,27 @@ void (* const interruptVectors[])(void) __attribute__ ((section (".intvecs"))) =
 /* application.                                                                */
 void Reset_Handler(void)
 {
-    uint32_t *pui32Src, *pui32Dest;
-
-    //
-    // Copy the data segment initializers from flash to SRAM.
-    //
-    pui32Src = &__data_load__;
-    for(pui32Dest = &__data_start__; pui32Dest < &__data_end__; )
-    {
-        *pui32Dest++ = *pui32Src++;
-    }
-
-    /* Call system initialization routine */
     SystemInit();
 
-    /* Jump to the main initialization routine. */
-    _mainCRTStartup();
+    /* Jump to the CCS C Initialization Routine. */
+    __asm("    .global _c_int00\n"
+          "    b.w     _c_int00");
 }
+
 
 /* This is the code that gets called when the processor receives an unexpected  */
 /* interrupt.  This simply enters an infinite loop, preserving the system state */
 /* for examination by a debugger.                                               */
 void Default_Handler(void)
 {
+    /* Fault trap exempt from ULP advisor */
+    #pragma diag_push
+    #pragma CHECK_ULP("-2.1")
+
 	/* Enter an infinite loop. */
 	while(1)
 	{
 	}
+
+	#pragma diag_pop
 }
