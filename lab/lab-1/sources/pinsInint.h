@@ -34,7 +34,14 @@ typedef enum port2GPIOConfig_t
    pulldown,
 }port2GPIOConfig_t;
 
-void vpinsInit_GPIO(port2Pins_t e_userPin, port2IO_t e_userPortIO, port2GPIOConfig_t e_userGPIO);
+typedef struct port2GPIO_t
+{
+    port2Pins_t e_IOpinNumber;
+    port2GPIOConfig_t e_GPIOType;
+    port2GPIOConfig_t e_IO;
+}port2GPIO_t;
+
+void vpinsInit_GPIO(port2GPIO_t * s_userGPIO_ptr, port2Pins_t e_userPin, port2IO_t e_userPortIO, port2GPIOConfig_t e_userGPIO);
 static void vPrv_pinsInit_InitIO(port2Pins_t e_userPin, port2IO_t e_userPortIO);
 static void vPrv_pinsInit_InitConfig(port2Pins_t e_userPin, port2GPIOConfig_t e_userGPIO);
 

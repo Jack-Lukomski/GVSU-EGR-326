@@ -6,8 +6,12 @@
  */
 #include "pinsInint.h"
 
-void vpinsInit_GPIO(port2Pins_t e_userPin, port2IO_t e_userPortIO, port2GPIOConfig_t e_userGPIO)
+void vpinsInit_GPIO(port2GPIO_t * s_userGPIO_ptr, port2Pins_t e_userPin, port2IO_t e_userPortIO, port2GPIOConfig_t e_userGPIO)
 {
+    s_userGPIO_ptr->e_GPIOType = e_userGPIO;
+    s_userGPIO_ptr->e_IO = e_userPortIO;
+    s_userGPIO_ptr->e_IOpinNumber = e_userPin;
+
     P2->SEL0 &= ~BIT(e_userPin);
     P2->SEL1 &= ~BIT(e_userPin);
     vPrv_pinsInit_InitIO(e_userPin, e_userPortIO);

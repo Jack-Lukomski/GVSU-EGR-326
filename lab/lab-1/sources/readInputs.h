@@ -13,7 +13,7 @@
 #include "pinsInint.h"
 #include <stdbool.h>
 
-bool xReadInputs_ReadPin(port2Pins_t e_userPin);
-static bool xPrv_ReadInputs_read(port2Pins_t e_userPin);
+bool xReadInputs_ReadPin(port2GPIO_t e_userPin);
+static bool xPrv_ReadInputs_read(port2GPIO_t e_userPin);
 
 #endif /* READINPUTS_H_ */
