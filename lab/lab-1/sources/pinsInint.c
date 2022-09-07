@@ -35,12 +35,12 @@ static void vPrv_pinsInit_InitConfig(port2Pins_t e_userPin, port2GPIOConfig_t e_
     if(e_userGPIO == pullup)
     {
         P2->REN |= BIT(e_userPin); // pull up resistor
-        P2->OUT |= BIT(e_userPin); // zero volts
+        P2->OUT |= BIT(e_userPin); //
     }
     else
     {
         P2->REN &= ~BIT(e_userPin); // pull down resistor
-        P2->OUT &= ~BIT(e_userPin); // one volt
+        P2->OUT &= ~BIT(e_userPin); //
     }
 }
 

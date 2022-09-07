@@ -4,12 +4,8 @@
 #include "readInputs.h"
 #include "pinsInint.h"
 
-#define NUM_STATES 2
+#define NUM_STATES 3
 
-port2GPIO_t s_redLed;
-port2GPIO_t s_greenLed;
-port2GPIO_t s_blueLed;
-port2GPIO_t s_pushButton;
 /**
  * main.c
  *
@@ -17,6 +13,26 @@ port2GPIO_t s_pushButton;
  * PIN 2.5 G
  * PIN 2.6 R
  */
+
+port2GPIO_t s_redLed;
+port2GPIO_t s_greenLed;
+port2GPIO_t s_blueLed;
+port2GPIO_t s_pushButton;
+
+typedef void(*vMain_LedState_ptr)(void);
+
+void vMain_InitOutputs(void);
+void vMain_TurnRedLedOn(void);
+void vMain_TurnGreenLedOn(void);
+void vMain_TurnBlueLedOn(void);
+
+static const vMain_LedState_ptr ledState_t[NUM_STATES] =
+{
+ vMain_TurnRedLedOn,
+ vMain_TurnGreenLedOn,
+ vMain_TurnBlueLedOn,
+};
+
 void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
@@ -29,34 +45,38 @@ void main(void)
 	{
 	    if(xReadInputs_ReadPin(s_pushButton) != false)
 	    {
-	        if(currentButtonState == 0)
-	        {
-	            vpinsInit_GPIO(&s_greenLed, pin5, output, pullup);
-	            vpinsInit_GPIO(&s_redLed, pin6, output, pullup);
-	            vpinsInit_GPIO(&s_blueLed, pin4, output, pullup);
+	        ledState_t[currentButtonState]();
+	        currentButtonState = ++currentButtonState % NUM_STATES;
 
-
-	            vToggle_turnPinLow(s_blueLed);
-	            vToggle_turnPinLow(s_greenLed);
-	            vToggle_turnPinHigh(s_redLed);
-	        }
-            if(currentButtonState == 1)
-            {
-                vToggle_turnPinLow(s_redLed);
-                vToggle_turnPinLow(s_blueLed);
-                vToggle_turnPinHigh(s_greenLed);
-            }
-            if(currentButtonState == 2)
-            {
-                vToggle_turnPinLow(s_greenLed);
-                vToggle_turnPinLow(s_redLed);
-                vToggle_turnPinHigh(s_blueLed);
-            }
-
-	        if(++currentButtonState == 3)
-	        {
-	            currentButtonState = 1;
-	        }
 	    }
 	}
+}
+
+void vMain_InitOutputs(void)
+{
+    vpinsInit_GPIO(&s_greenLed, pin5, output, pullup);
+    vpinsInit_GPIO(&s_redLed, pin6, output, pullup);
+    vpinsInit_GPIO(&s_blueLed, pin4, output, pullup);
+}
+
+void vMain_TurnRedLedOn(void)
+{
+    vMain_InitOutputs();
+    vToggle_turnPinLow(s_blueLed);
+    vToggle_turnPinLow(s_greenLed);
+    vToggle_turnPinHigh(s_redLed);
+}
+
+void vMain_TurnGreenLedOn(void)
+{
+    vToggle_turnPinLow(s_redLed);
+    vToggle_turnPinLow(s_blueLed);
+    vToggle_turnPinHigh(s_greenLed);
+}
+
+void vMain_TurnBlueLedOn(void)
+{
+    vToggle_turnPinLow(s_greenLed);
+    vToggle_turnPinLow(s_redLed);
+    vToggle_turnPinHigh(s_blueLed);
 }
