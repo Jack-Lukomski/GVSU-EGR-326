@@ -3,8 +3,11 @@
 #include "pinsInint.h"
 #include "readInputs.h"
 #include "pinsInint.h"
+#include "port3PinsInit.h"
+#include "port3ReadInputs.h"
 
 #define NUM_STATES 3
+#define PART_TWO 1
 
 /**
  * main.c
@@ -17,7 +20,8 @@
 port2GPIO_t s_redLed;
 port2GPIO_t s_greenLed;
 port2GPIO_t s_blueLed;
-port2GPIO_t s_pushButton;
+port2GPIO_t s_fowardPushButton;
+port3GPIO_t s_backwardsPushButton;
 
 typedef void(*vMain_LedState_ptr)(void);
 
@@ -37,18 +41,34 @@ void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 
-    vpinsInit_GPIO(&s_pushButton, pin7, input, pullup);
+    vpinsInit_GPIO(&s_fowardPushButton, pin7, input, pullup);
 
-	uint8_t currentButtonState = 0;
+    #if PART_TWO
+    vpinsInit_3GPIO(&s_backwardsPushButton, pin32, input3, pullup3);
+    #endif
+
+	int8_t currentButtonState = 0;
+
+	while((xReadInputs_ReadPin(s_fowardPushButton) || xReadInputs_3ReadPin(s_backwardsPushButton)) == false); // Waiting to start LED's
 
 	while(1)
 	{
-	    if(xReadInputs_ReadPin(s_pushButton) != false)
-	    {
-	        ledState_t[currentButtonState]();
-	        currentButtonState = ++currentButtonState % NUM_STATES;
+	    ledState_t[currentButtonState]();
 
+	    if(xReadInputs_ReadPin(s_fowardPushButton) != false)
+	    {
+	        currentButtonState = ++currentButtonState % NUM_STATES;
 	    }
+
+        #if PART_TWO
+	    if(xReadInputs_3ReadPin(s_backwardsPushButton) != false)
+	    {
+	        if(--currentButtonState < 0)
+	        {
+	            currentButtonState = 2;
+	        }
+	    }
+        #endif
 	}
 }
 
@@ -69,6 +89,7 @@ void vMain_TurnRedLedOn(void)
 
 void vMain_TurnGreenLedOn(void)
 {
+    vMain_InitOutputs();
     vToggle_turnPinLow(s_redLed);
     vToggle_turnPinLow(s_blueLed);
     vToggle_turnPinHigh(s_greenLed);
@@ -76,6 +97,7 @@ void vMain_TurnGreenLedOn(void)
 
 void vMain_TurnBlueLedOn(void)
 {
+    vMain_InitOutputs();
     vToggle_turnPinLow(s_greenLed);
     vToggle_turnPinLow(s_redLed);
     vToggle_turnPinHigh(s_blueLed);

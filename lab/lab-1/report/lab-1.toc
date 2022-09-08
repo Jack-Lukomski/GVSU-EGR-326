@@ -4,7 +4,14 @@
 \contentsline {subsection}{\numberline {2.1}Apparatus}{2}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2}Components}{2}{subsection.2.2}%
 \contentsline {subsection}{\numberline {2.3}Software}{2}{subsection.2.3}%
-\contentsline {section}{\numberline {3}Procedure}{2}{section.3}%
-\contentsline {section}{\numberline {4}Results}{2}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Questions}{2}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusion}{2}{section.5}%
+\contentsline {section}{\numberline {3}Libraries}{2}{section.3}%
+\contentsline {subsection}{\numberline {3.1}pinsInit Library}{2}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Purpose}{2}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Header File}{2}{subsubsection.3.1.2}%
+\contentsline {section}{\numberline {4}Procedure}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Part I – Sequencing colors of a RGB LED using a pushbutton switch}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Description}{3}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}}{4}{subsubsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.3}Part II – Sequencing colors of a RGB LED using two switches with reverse direction}{4}{subsection.4.3}%
+\contentsline {section}{\numberline {5}Code}{4}{section.5}%
+\contentsline {section}{\numberline {6}Conclusion}{4}{section.6}%
