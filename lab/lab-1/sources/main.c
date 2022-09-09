@@ -26,9 +26,13 @@ port3GPIO_t s_backwardsPushButton;
 typedef void(*vMain_LedState_ptr)(void);
 
 void vMain_InitOutputs(void);
+void vMain_TurnAllOff(void);
 void vMain_TurnRedLedOn(void);
 void vMain_TurnGreenLedOn(void);
 void vMain_TurnBlueLedOn(void);
+
+void vMain_GoFoward(int8_t * currButtonState);
+void vMain_GoBackwards(int8_t * currButtonState);
 
 static const vMain_LedState_ptr ledState_t[NUM_STATES] =
 {
@@ -49,28 +53,40 @@ void main(void)
 
 	int8_t currentButtonState = 0;
 
-	while((xReadInputs_ReadPin(s_fowardPushButton) || xReadInputs_3ReadPin(s_backwardsPushButton)) == false); // Waiting to start LED's
-
 	while(1)
 	{
-	    ledState_t[currentButtonState]();
-
 	    if(xReadInputs_ReadPin(s_fowardPushButton) != false)
 	    {
-	        currentButtonState = ++currentButtonState % NUM_STATES;
+	        vMain_GoFoward(&currentButtonState);
 	    }
 
         #if PART_TWO
 	    if(xReadInputs_3ReadPin(s_backwardsPushButton) != false)
 	    {
-	        if(--currentButtonState < 0)
-	        {
-	            currentButtonState = 2;
-	        }
+	        vMain_GoBackwards(&currentButtonState);
 	    }
         #endif
 	}
 }
+
+void vMain_GoFoward(int8_t * currButtonState)
+{
+    ledState_t[*currButtonState]();
+    if(++(*currButtonState) >= 3)
+    {
+        *currButtonState = 0;
+    }
+}
+
+void vMain_GoBackwards(int8_t * currButtonState)
+{
+    if(--(*currButtonState) < 0)
+    {
+        *currButtonState = 2;
+    }
+    ledState_t[*currButtonState]();
+}
+
 
 void vMain_InitOutputs(void)
 {
@@ -101,4 +117,11 @@ void vMain_TurnBlueLedOn(void)
     vToggle_turnPinLow(s_greenLed);
     vToggle_turnPinLow(s_redLed);
     vToggle_turnPinHigh(s_blueLed);
+}
+
+void vMain_TurnAllOff(void)
+{
+    vToggle_turnPinLow(s_greenLed);
+    vToggle_turnPinLow(s_redLed);
+    vToggle_turnPinLow(s_blueLed);
 }
