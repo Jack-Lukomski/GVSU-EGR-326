@@ -1,1 +1,0 @@
-"./main.obj" "./pinsInint.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "./modules/Toggle/Toggle.obj" "./modules/pinsInit/pinsInint.obj" "./modules/readInputs/readInputs.obj" "../msp432p401r.cmd" -llibc.a 
