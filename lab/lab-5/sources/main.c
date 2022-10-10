@@ -15,7 +15,6 @@ void main(void)
 	for(;;)
 	{
 	    xI2C_Read(SLAVE_ADDRESS, 0, &recieveData);
-	    __delay_cycles(30000);
 	    printf("%x\n", recieveData);
 	}
 }
