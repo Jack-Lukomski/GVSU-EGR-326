@@ -11,23 +11,29 @@ double TempCelc;
 int tempInt;
 int tempDec;
 char prevKey;
+typedef char * String;
 
 
 void main(void)
 {
     int i;
     int pressed;
+
+    String name[7] = {"Seconds: ", "Minutes: ", "Hours: ", "Day: ", "Date: ", "Month: ", "Year: "};
+
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
-//    unsigned char timeDateWrite[7]={0x00, 0x00, 0x15, 0x02, 0x0A, 0x0A, 0x22};
+    unsigned char timeDateWrite[7]={0x00, 0x50, 0x17, 0x02, 0x0A, 0x0A, 0x22};
     SysTickInit();
     keypad_initialize();
 	__delay_cycles(300000);
 	vI2C_Initlize();
     __delay_cycles(300000);
-//    for (i=0; i<7; i++){
-//        xI2C_Write(0x68, i, timeDateWrite[i]);
-//        __delay_cycles(300000);
-//    }
+    for (i=0; i<7; i++){
+        xI2C_Write(0x68, i, timeDateWrite[i]);
+        __delay_cycles(300000);
+    }
+
+    printf("\nEnter * and then\n 1 for Date\n 2 for time\n 3 for temperature\n");
 
 	while(1)
 	{
@@ -51,21 +57,24 @@ void main(void)
                 while(!Read_Keypad());
                 if(pressed){
                     if(key == 49){
+                        printf("Date:\n");
                         for (i=4; i<7; i++){
-                            printf("%x\n", currDate[i]);
+                            printf("%s%x\n", name[i], currDate[i]);
                          }
                         prevKey = 0;
                         printf("\n");
                     }
                     else if(key == 50){
+                        printf("Time:\n");
                         for (i=2; i>=0; i--){
-                            printf("%x\n", currDate[i]);
+                            printf("%s%x\n", name[i], currDate[i]);
                          }
                         prevKey = 0;
                         printf("\n");
                     }
                     else if(key == 51){
-                        printf("%f\n", TempCelc);
+                        printf("Temperature:\n");
+                        printf("Temperature is %f degrees celcius\n", TempCelc);
                         prevKey = 0;
                         printf("\n");
                     }
