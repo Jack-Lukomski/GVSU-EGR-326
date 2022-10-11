@@ -184,4 +184,8 @@
 		<project id="Lab5.com.ti.ccstudio.buildDefinitions.MSP432.ProjectType.1817548167" name="MSP432" projectType="com.ti.ccstudio.buildDefinitions.MSP432.ProjectType"/>
 	</storageModule>
 	<storageModule moduleId="scannerConfiguration"/>
+<<<<<<< Updated upstream:lab/EGR326_Lab5_Part03/.cproject
+=======
+	<storageModule moduleId="org.eclipse.cdt.make.core.buildtargets"/>
+>>>>>>> Stashed changes:lab/lab-5/sources/.cproject
 </cproject>
