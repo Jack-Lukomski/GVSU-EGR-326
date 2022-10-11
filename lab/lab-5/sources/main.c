@@ -4,6 +4,8 @@
 #include "I2C.h"
 #include "keypad.h"
 #include "systick.h"
+#define PART3 1
+
 
 uint8_t recieveData;
 uint8_t recieveDataCount = 0;
@@ -25,6 +27,7 @@ typedef void(*vMain_SetRTC_ptr)(void);
 
 uint8_t stateCount = 0;
 
+#if !PART3
 void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
@@ -242,4 +245,90 @@ void vMain_SetYear(void)
     printf("The chosen year is %d\n", userEnteredValue);
     xI2C_Write(SLAVE_ADDRESS, YEAR_ADDRESS, userEnteredValue);
 }
+#endif
+
+void vMain_displayMDY(void);
+void vMain_displayTime(void);
+void vMain_displayTemp(void);
+
+void main (void)
+{
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
+
+        vI2C_Initlize();
+        vkeypad_Initialize();
+        vSysTick_Init();
+        // SET CURRENT TIME HERE
+        xI2C_Write(SLAVE_ADDRESS, SECONDS_ADDRESS, 0x00);
+        xI2C_Write(SLAVE_ADDRESS, MINUETS_ADDRESS, 0x45);
+        xI2C_Write(SLAVE_ADDRESS, HOURS_ADDRESS, 0x05);
+        printf("Press * followed by a 1, 2, or 3\n1) Will display the current day month and year\n2) will display the current hour, min, and second\n3) will display the tempature in celcius\n");
+
+        for(;;)
+        {
+            if(xkeypad_ReadKeypad() && keypad_keyPressed == 58)
+            {
+                while(!xkeypad_ReadKeypad())
+                {
+                    ;
+                }
+                if(keypad_keyPressed == '1')
+                {
+                    vMain_displayMDY();
+                }
+                else if(keypad_keyPressed == '2')
+                {
+                    vMain_displayTime();
+                }
+                else if(keypad_keyPressed == '3')
+                {
+                    vMain_displayTemp();
+                }
+            }
+        }
+}
+
+void vMain_displayMDY(void)
+{
+    xI2C_Write(SLAVE_ADDRESS, MONTH_ADDRESS, 0x10);
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, MONTH_ADDRESS, &recieveData);
+    month = recieveData;
+    xI2C_Write(SLAVE_ADDRESS, DAYS_ADDRESS, 0x11);
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, DAYS_ADDRESS, &recieveData);
+    day = recieveData;
+    xI2C_Write(SLAVE_ADDRESS, YEAR_ADDRESS, 0x22);
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, YEAR_ADDRESS, &recieveData);
+    year = recieveData;
+    printf("The current MDY is: %x/%x/20%x\n", month, day, year);
+}
+
+void vMain_displayTime(void)
+{
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, SECONDS_ADDRESS, &recieveData);
+    sec = recieveData;
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, MINUETS_ADDRESS, &recieveData);
+    min = recieveData;
+    vSysTick_mSecDelay(30);
+    xI2C_Read(SLAVE_ADDRESS, HOURS_ADDRESS, &recieveData);
+    hour = recieveData;
+    printf("The current time is: %x:%x:%x\n", hour, min, sec);
+}
+
+void vMain_displayTemp(void)
+{
+    xI2C_Read(SLAVE_ADDRESS, TEMPATURE_ADDRESS, &recieveData);
+    tempdec = (recieveData>>6);
+    vSysTick_mSecDelay(10);
+    xI2C_Read(SLAVE_ADDRESS, 0x12, &recieveData);
+    temp = recieveData;
+    tempcel = (tempdec * .25) + temp;
+    vSysTick_mSecDelay(10);
+    printf("The current tempature is: %f\n", tempcel);
+}
+
 
