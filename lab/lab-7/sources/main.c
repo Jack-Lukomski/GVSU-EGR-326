@@ -18,15 +18,25 @@ void main(void)
 
 	while(1)
 	{
-	    vToggle_turnPinLow(motor_b);
-	    vToggle_turnPinLow(motor_bp);
 	    vToggle_turnPinHigh(motor_a);
-	    vToggle_turnPinHigh(motor_ap);
+	    vToggle_turnPinHigh(motor_b);
+	    vToggle_turnPinLow(motor_ap);
+	    vToggle_turnPinLow(motor_bp);
 	    __delay_cycles(30000);
-        vToggle_turnPinLow(motor_a);
-        vToggle_turnPinLow(motor_ap);
         vToggle_turnPinHigh(motor_b);
+        vToggle_turnPinHigh(motor_ap);
+        vToggle_turnPinLow(motor_a);
+        vToggle_turnPinLow(motor_bp);
+        __delay_cycles(30000);
+        vToggle_turnPinHigh(motor_ap);
         vToggle_turnPinHigh(motor_bp);
+        vToggle_turnPinLow(motor_a);
+        vToggle_turnPinLow(motor_b);
+        __delay_cycles(30000);
+        vToggle_turnPinHigh(motor_a);
+        vToggle_turnPinHigh(motor_bp);
+        vToggle_turnPinLow(motor_ap);
+        vToggle_turnPinLow(motor_b);
         __delay_cycles(30000);
 	}
 }
