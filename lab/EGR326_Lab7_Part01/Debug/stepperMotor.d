@@ -21,6 +21,7 @@ stepperMotor.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 stepperMotor.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/system_msp432p401r.h
 stepperMotor.obj: ../stepperMotor.h
 stepperMotor.obj: ../SysTickTimer.h
+stepperMotor.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
 
 ../stepperMotor.c:
 
@@ -63,4 +64,6 @@ C:/ti/ccs1040/ccs/ccs_base/arm/include/system_msp432p401r.h:
 ../stepperMotor.h:
 
 ../SysTickTimer.h:
+
+C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
 

@@ -13,40 +13,33 @@
 #include "debounce.h"
 #include "msp.h"
 #include "stdio.h"
+#include "stdbool.h"
+
 
 //int freqHalf;
 //int freqDouble;
 
-void PORT4_IRQHandler(void){
-    if(btnPort->IFG & increase){
+void PORT6_IRQHandler(void){
+    if(btnPort->IFG & btn){
         if(debounce_sw1_press(5)){  //check debounce function
-            freqDouble=1;
+            pressed^=1;
         }
     }
-    else if(btnPort->IFG & decrease){
-        if(debounce_sw2_press(5)){  //call function from library, check cycle
-            freqHalf=1;
-        }
-    }
-    btnPort->IFG &= ~(increase|decrease);
+    btnPort->IFG &= ~(btn);
 }
 
 
-void pin_init (void){
-    P4->IES  |=  (BIT4);
-    P4->IE   |=  (BIT4);
-    P4->IFG  &= ~(BIT4);
-    P4->DIR &=~ BIT4;      //Set Switch 1 to input
+void pin_init(void){
+    btnPort->IES  |=  (BIT0);
+    btnPort->IE   |=  (BIT0);
+    btnPort->IFG  &= ~(BIT0);
+    btnPort->DIR  &=~ BIT0;      //Set Switch 1 to input
 
-    P4->REN |= BIT4;        //Enable resistor in switch 1
-    P4->OUT |= BIT4;        //Make switch 1 pull up
+    btnPort->REN |= BIT0;        //Enable resistor in switch 1
+    btnPort->OUT |= BIT0;        //Make switch 1 pull up
 
-    P4->SEL0 &=~ BIT4;      //standard I/O P4.4 Switch 1
-    P4->SEL1 &=~ BIT4;
-
-    P5->SEL0 &=~ 0xf0;
-    P5->SEL1 &=~ 0xf0;
-    P5->DIR |= 0xf0;
+    btnPort->SEL0 &=~ BIT0;      //standard I/O P4.4 Switch 1
+    btnPort->SEL1 &=~ BIT0;
 }
 //
 

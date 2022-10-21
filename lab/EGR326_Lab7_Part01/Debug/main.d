@@ -19,6 +19,7 @@ main.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/core_cm4.h
 main.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/cmsis_compiler.h
 main.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 main.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/system_msp432p401r.h
+main.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
 main.obj: ../GPIO_Interrupt.h
 main.obj: ../Read_Keypad.h
 main.obj: ../SysTickTimer.h
@@ -61,6 +62,8 @@ C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/cmsis_compiler.h:
 C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h:
 
 C:/ti/ccs1040/ccs/ccs_base/arm/include/system_msp432p401r.h:
+
+C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
 
 ../GPIO_Interrupt.h:
 

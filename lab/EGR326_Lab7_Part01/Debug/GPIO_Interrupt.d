@@ -12,6 +12,7 @@ GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/inclu
 GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h
 GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
+GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
 GPIO_Interrupt.obj: ../debounce.h
 GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/msp.h
 GPIO_Interrupt.obj: C:/ti/ccs1040/ccs/ccs_base/arm/include/msp432p401r.h
@@ -47,6 +48,8 @@ C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h:
 C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h:
 
 C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h:
+
+C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
 
 ../debounce.h:
 

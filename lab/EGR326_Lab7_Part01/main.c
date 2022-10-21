@@ -1,15 +1,9 @@
 #include "msp.h"
+#include "stdbool.h"
 #include "GPIO_Interrupt.h"
 #include "Read_Keypad.h"
 #include "SysTickTimer.h"
 #include "stepperMotor.h"
-
-
-/**
- * main.c
- */
-
-int prevKey;
 
 #define S1 BIT4
 #define IN1 BIT4
@@ -17,7 +11,9 @@ int prevKey;
 #define IN3 BIT6
 #define IN4 BIT7
 
-int complete;
+int prevKey;
+int motorTurned;
+
 void main(void)
 {
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
@@ -26,26 +22,22 @@ void main(void)
     keypad_initialize();
     pin_init();
     motorPinInitialize();
-    NVIC->ISER[1] = 1<< ((PORT4_IRQn) & 31);
+    NVIC->ISER[1] = 1<< ((PORT6_IRQn) & 31);
     __enable_interrupt();
-    int i;
 
-    for (i=1;i<5;i++)
+
+    while(1)
     {
-    motorTurn(4, 6, 5, 7, 10);
-    complete++;
-    }
-
-    while(1){
-
-
-//        pressed=Read_Keypad();
-//        if(pressed){
-//            key = (key-48);
-//            STEP_PORT->OUT |= BIT(key);
-//            STEP_PORT->OUT &=~ BIT(prevKey);
-//            prevKey=key;
-//        }
+        while(pressed && (motorTurned<4))
+        {
+            motorTurn(4, 6, 5, 7, 10);
+            motorTurned++;
+        }
+        while(~pressed && (motorTurned>0))
+        {
+            motorTurn(7, 5, 6, 4, 10);
+            motorTurned--;
+        }
     }
 
 }

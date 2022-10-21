@@ -7,6 +7,8 @@
 #include "msp.h"
 #include "stepperMotor.h"
 #include "SysTickTimer.h"
+#include "stdbool.h"
+
 
 
 void motorPinInitialize(void)

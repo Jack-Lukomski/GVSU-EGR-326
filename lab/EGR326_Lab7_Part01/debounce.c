@@ -50,7 +50,7 @@ uint8_t debounce_sw1_press(time){
     /** check shifted left one, reads in P1.1, moves reading to least significant
        and sets check's last 5 bits to 1, if 0 is not read in for 11 consecutive
        reads of switch 1, it will not return true. **/
-    check = (check<<1)|(P4->IN & BIT4)>>4 | 0xf800;
+    check = (check<<1)|(P6->IN & BIT0)>>0 | 0xf800;
     __delay_cycles(3000);               //1ms delay
     if (check == 0xf800){               //check if switch remained pressed
         return 1;                       //return true if remained pressed

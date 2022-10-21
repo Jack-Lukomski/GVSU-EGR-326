@@ -9,15 +9,13 @@
 *                   decrease by 10%
 * ********************************************************************************/
 #include "stdint.h"
+#include "stdbool.h"
 
-#define increase BIT4
-#define decrease BIT5
+
+#define btn BIT0
 #define btnPort P4
 
-//static int freqHalf;
-//static int freqDouble;
-int freqHalf;
-int freqDouble;
+bool pressed;
 
 
 
