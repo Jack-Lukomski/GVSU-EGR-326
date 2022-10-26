@@ -19,27 +19,35 @@
 //int freqHalf;
 //int freqDouble;
 
-void PORT6_IRQHandler(void){
+void PORT1_IRQHandler(void){
     if(btnPort->IFG & btn){
-        if(debounce_sw1_press(5)){  //check debounce function
-            pressed^=1;
+        __delay_cycles(3000000);
+        if(~(btnPort->IN & btn)){
+//        if(debounce_sw1_press(5)){  //check debounce function
+            done=0;
+            if(pressed){
+                pressed=0;
+            }
+            else{
+                pressed=1;
+            }
         }
     }
-    btnPort->IFG &= ~(btn);
+    btnPort->IFG &= ~(0xff);
 }
 
 
 void pin_init(void){
-    btnPort->IES  |=  (BIT0);
-    btnPort->IE   |=  (BIT0);
-    btnPort->IFG  &= ~(BIT0);
-    btnPort->DIR  &=~ BIT0;      //Set Switch 1 to input
+    btnPort->IES  |=  (btn);
+    btnPort->IE   |=  (btn);
+    btnPort->IFG  &= ~(btn);
+    btnPort->DIR  &=~ btn;      //Set Switch 1 to input
 
-    btnPort->REN |= BIT0;        //Enable resistor in switch 1
-    btnPort->OUT |= BIT0;        //Make switch 1 pull up
+    btnPort->REN |= btn;        //Enable resistor in switch 1
+    btnPort->OUT |= btn;        //Make switch 1 pull up
 
-    btnPort->SEL0 &=~ BIT0;      //standard I/O P4.4 Switch 1
-    btnPort->SEL1 &=~ BIT0;
+    btnPort->SEL0 &=~ btn;      //standard I/O P4.4 Switch 1
+    btnPort->SEL1 &=~ btn;
 }
 //
 

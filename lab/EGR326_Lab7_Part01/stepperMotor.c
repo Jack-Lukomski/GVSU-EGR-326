@@ -19,18 +19,22 @@ void motorPinInitialize(void)
 }
 
 
-void motorTurn(int in1, int in2, int in3, int in4, int time)
+void motorTurn(int in1, int in2, int in3, int in4, int time, int num5Steps)
 {
-    STEP_PORT->OUT &=~ BIT(in3);
-    STEP_PORT->OUT |= BIT(in1);
-    SysTickTimer(time);
-    STEP_PORT->OUT &=~ BIT(in4);
-    STEP_PORT->OUT |= BIT(in2);
-    SysTickTimer(time);
-    STEP_PORT->OUT &=~ BIT(in1);
-    STEP_PORT->OUT |= BIT(in3);
-    SysTickTimer(time);
-    STEP_PORT->OUT &=~ BIT(in2);
-    STEP_PORT->OUT |= BIT(in4);
-    SysTickTimer(time);
+    int i = 0;
+    for (i = 0; i < num5Steps; i++)
+    {
+        STEP_PORT->OUT &=~ BIT(in3);
+        STEP_PORT->OUT |= BIT(in1);
+        SysTickTimer(time);
+        STEP_PORT->OUT &=~ BIT(in4);
+        STEP_PORT->OUT |= BIT(in2);
+        SysTickTimer(time);
+        STEP_PORT->OUT &=~ BIT(in1);
+        STEP_PORT->OUT |= BIT(in3);
+        SysTickTimer(time);
+        STEP_PORT->OUT &=~ BIT(in2);
+        STEP_PORT->OUT |= BIT(in4);
+    }
+    P5->OUT &=~ 0xf0;
 }

@@ -12,10 +12,11 @@
 #include "stdbool.h"
 
 
-#define btn BIT0
-#define btnPort P4
+#define btn BIT5
+#define btnPort P1
 
-bool pressed;
+volatile bool pressed;
+volatile bool done;
 
 
 
@@ -26,6 +27,6 @@ bool pressed;
 
 void pin_init(void);
 
-void timerA_init(void);
+//void timerA_init(void);
 
 #endif /* PWM_BTN_SET_H_ */
