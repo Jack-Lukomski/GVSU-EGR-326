@@ -11,15 +11,9 @@ GEN_CMDS__FLAG :=
 
 ORDERED_OBJS += \
 "./I2C.obj" \
-"./ST7735.obj" \
-"./Toggle.obj" \
 "./main.obj" \
-"./pinsInint.obj" \
-"./readInputs.obj" \
 "./startup_msp432p401r_ccs.obj" \
-"./stepperMotor.obj" \
 "./system_msp432p401r.obj" \
-"./systick.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -129,42 +123,42 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-lab7.out \
+slave.out \
 
 EXE_OUTPUTS__QUOTED += \
-"lab7.out" \
+"slave.out" \
 
 BIN_OUTPUTS += \
-lab7.hex \
+slave.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"lab7.hex" \
+"slave.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "lab7.out"
+	@$(MAKE) --no-print-directory -Onone "slave.out"
 
 # Tool invocations
-lab7.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+slave.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"lab7.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1200/ccs/ccs_base/arm/include" -i"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="lab7_linkInfo.xml" --rom_model -o "lab7.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"slave.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1200/ccs/ccs_base/arm/include" -i"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="slave_linkInfo.xml" --rom_model -o "slave.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-lab7.hex: $(EXE_OUTPUTS)
+slave.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: Arm Hex Utility'
-	"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "lab7.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "slave.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "I2C.obj" "ST7735.obj" "Toggle.obj" "main.obj" "pinsInint.obj" "readInputs.obj" "startup_msp432p401r_ccs.obj" "stepperMotor.obj" "system_msp432p401r.obj" "systick.obj" 
-	-$(RM) "I2C.d" "ST7735.d" "Toggle.d" "main.d" "pinsInint.d" "readInputs.d" "startup_msp432p401r_ccs.d" "stepperMotor.d" "system_msp432p401r.d" "systick.d" 
+	-$(RM) "I2C.obj" "main.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
+	-$(RM) "I2C.d" "main.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

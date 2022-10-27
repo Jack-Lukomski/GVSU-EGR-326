@@ -1,16 +1,19 @@
 # FIXED
 
 main.obj: ../main.c
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_ti_config.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/linkage.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_types.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/cdefs.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h
 main.obj: C:/ti/ccs1200/ccs/ccs_base/arm/include/msp.h
 main.obj: C:/ti/ccs1200/ccs/ccs_base/arm/include/msp432p401r.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdint.h
-main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_ti_config.h
-main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/linkage.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_stdint40.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/stdint.h
-main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/cdefs.h
-main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_types.h
-main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_stdint.h
 main.obj: C:/ti/ccs1200/ccs/ccs_base/arm/include/msp_compatibility.h
@@ -21,8 +24,29 @@ main.obj: C:/ti/ccs1200/ccs/ccs_base/arm/include/CMSIS/cmsis_ccs.h
 main.obj: C:/ti/ccs1200/ccs/ccs_base/arm/include/system_msp432p401r.h
 main.obj: ../pinsInint.h
 main.obj: ../Toggle.h
+main.obj: ../stepperMotor.h
+main.obj: ../systick.h
+main.obj: ../readInputs.h
+main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
+main.obj: ../ST7735.h
 
 ../main.c:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdio.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_ti_config.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/linkage.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_types.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/cdefs.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdlib.h:
 
 C:/ti/ccs1200/ccs/ccs_base/arm/include/msp.h:
 
@@ -30,19 +54,9 @@ C:/ti/ccs1200/ccs/ccs_base/arm/include/msp432p401r.h:
 
 C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdint.h:
 
-C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_ti_config.h:
-
-C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/linkage.h:
-
 C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/_stdint40.h:
 
 C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/stdint.h:
-
-C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/cdefs.h:
-
-C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/sys/_types.h:
-
-C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_types.h:
 
 C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/machine/_stdint.h:
 
@@ -63,4 +77,14 @@ C:/ti/ccs1200/ccs/ccs_base/arm/include/system_msp432p401r.h:
 ../pinsInint.h:
 
 ../Toggle.h:
+
+../stepperMotor.h:
+
+../systick.h:
+
+../readInputs.h:
+
+C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
+
+../ST7735.h:
 
