@@ -14,6 +14,6 @@
 #include <stdbool.h>
 
 void vSPI_Initlize(void);
-void vSPI_writeByte(uint8_t userData);
+void vSPI_writeByte(uint8_t userAddress, uint8_t userData);
 
 #endif /* SPI_H_ */
