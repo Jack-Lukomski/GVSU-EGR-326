@@ -10,13 +10,13 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./SPI.obj" \
-"./Toggle.obj" \
+"./GPIO_Interrupt.obj" \
+"./SysTickTimer.obj" \
+"./debounce.obj" \
 "./main.obj" \
-"./pinsInint.obj" \
+"./spi.obj" \
 "./startup_msp432p401r_ccs.obj" \
 "./system_msp432p401r.obj" \
-"./systick.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -126,42 +126,42 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-lab8.out \
+EGR326_Lab8.out \
 
 EXE_OUTPUTS__QUOTED += \
-"lab8.out" \
+"EGR326_Lab8.out" \
 
 BIN_OUTPUTS += \
-lab8.hex \
+EGR326_Lab8.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"lab8.hex" \
+"EGR326_Lab8.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "lab8.out"
+	@$(MAKE) --no-print-directory -Onone "EGR326_Lab8.out"
 
 # Tool invocations
-lab8.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+EGR326_Lab8.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"lab8.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="lab8_linkInfo.xml" --rom_model -o "lab8.out" $(ORDERED_OBJS)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"EGR326_Lab8.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="EGR326_Lab8_linkInfo.xml" --rom_model -o "EGR326_Lab8.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-lab8.hex: $(EXE_OUTPUTS)
+EGR326_Lab8.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: Arm Hex Utility'
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "lab8.hex" $(EXE_OUTPUTS__QUOTED)
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "EGR326_Lab8.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "SPI.obj" "Toggle.obj" "main.obj" "pinsInint.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" "systick.obj" 
-	-$(RM) "SPI.d" "Toggle.d" "main.d" "pinsInint.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" "systick.d" 
+	-$(RM) "GPIO_Interrupt.obj" "SysTickTimer.obj" "debounce.obj" "main.obj" "spi.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
+	-$(RM) "GPIO_Interrupt.d" "SysTickTimer.d" "debounce.d" "main.d" "spi.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
