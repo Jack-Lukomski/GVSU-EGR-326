@@ -14,9 +14,11 @@
 
 #define btn BIT5
 #define btnPort P1
+#define onboardS1 BIT1
 
 bool pressed;
 int numPress;
+int numPress2;
 
 
 

@@ -38,12 +38,8 @@ void main(void)
 	    spi_write(0x01, i);
 	    spi_write(0x02, j);
 	    spi_write(0x03, k);
-	    if(numPress == 10)
-	    {
-	        numPress2++;
-	        numPress=0;
-	    }
 	    spi_write(0x05, numPress);
+        spi_write(0x06, numPress2);
 	    SysTickTimer(999);
 	    if(pressed == 0) i++;
 	    if(i==10)
@@ -56,6 +52,5 @@ void main(void)
 	        k++;
 	        j=0;
 	    }
-	    spi_write(0x01, i);
 	}
 }

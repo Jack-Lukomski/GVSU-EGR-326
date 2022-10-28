@@ -12,7 +12,7 @@ void spi_init(void)
     SPIPORT->SEL1 &=~ (CLK | MOSI);
     EUSCI_B2->CTLW0 = 0X0001;
     EUSCI_B2->CTLW0 = 0XE9C1;
-    EUSCI_B2->BRW = 1;
+    EUSCI_B2->BRW = 30;
 //    EUSCI_B2->IE |= 0X02;
     EUSCI_B2->CTLW0 &=~ 0X0001;
 }

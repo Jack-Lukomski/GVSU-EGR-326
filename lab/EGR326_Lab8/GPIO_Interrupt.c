@@ -20,11 +20,16 @@
 //int freqDouble;
 
 void PORT1_IRQHandler(void){
-    if(btnPort->IFG & btn){
+    if(btnPort->IFG & (btn|onboardS1)){
         __delay_cycles(1500000);
-        if(~(btnPort->IN & btn)){
+        if(~(btnPort->IN & (btn|onboardS1))){
 //        if(debounce_sw1_press(5)){  //check debounce function
             numPress++;
+            if(numPress==10)
+            {
+                numPress=0;
+                numPress2++;
+            }
             if(pressed){
                 pressed=0;
             }
@@ -38,16 +43,17 @@ void PORT1_IRQHandler(void){
 
 
 void pin_init(void){
-    btnPort->IES  |=  (btn);
-    btnPort->IE   |=  (btn);
-    btnPort->IFG  &= ~(btn);
-    btnPort->DIR  &=~ btn;      //Set Switch 1 to input
+    btnPort->IES  |=  (btn|onboardS1);
+    btnPort->IE   |=  (btn|onboardS1);
+    btnPort->IFG  &= ~(btn|onboardS1);
+    btnPort->DIR  &=~ (btn|onboardS1);      //Set Switch 1 to input
 
-    btnPort->REN |= btn;        //Enable resistor in switch 1
-    btnPort->OUT |= btn;        //Make switch 1 pull up
+    btnPort->REN |= (btn|onboardS1);        //Enable resistor in switch 1
+    btnPort->OUT |= (btn);        //Make switch 1 pull up
 
-    btnPort->SEL0 &=~ btn;      //standard I/O P4.4 Switch 1
-    btnPort->SEL1 &=~ btn;
+
+    btnPort->SEL0 &=~ (btn|onboardS1);      //standard I/O P4.4 Switch 1
+    btnPort->SEL1 &=~ (btn|onboardS1);
 }
 //
 
