@@ -1,0 +1,127 @@
+
+**** Build of configuration Debug for project Lab5 ****
+
+"C:\\ti\\ccs1040\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../startup_msp432p401r_ccs.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="startup_msp432p401r_ccs.d_raw"  "../startup_msp432p401r_ccs.c"
+Finished building: "../startup_msp432p401r_ccs.c"
+ 
+Building file: "../I2C.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="I2C.d_raw"  "../I2C.c"
+"../I2C.c", line 16: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 20: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 25: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 29: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 33: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 66: remark #1528-D: (ULP 3.1) Detected flag polling using UCB0IFG. Recommend using an interrupt combined with enter LPMx and ISR
+"../I2C.c", line 53: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../I2C.c", line 62: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+Finished building: "../I2C.c"
+ 
+Building file: "../keypad.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="keypad.d_raw"  "../keypad.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+"../keypad.c", line 27: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../keypad.c", line 28: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../keypad.c", line 22: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../keypad.c", line 48: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../keypad.c", line 51: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../keypad.c", line 54: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../keypad.c", line 57: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+Finished building: "../keypad.c"
+ 
+Building file: "../pinsInint.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="pinsInint.d_raw"  "../pinsInint.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+Finished building: "../pinsInint.c"
+ 
+Building file: "../readInputs.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="readInputs.d_raw"  "../readInputs.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+"../readInputs.c", line 30: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../readInputs.c", line 34: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+Finished building: "../readInputs.c"
+ 
+Building file: "../main.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+"../main.c", line 36: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 38: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 40: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 42: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 44: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 46: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 48: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 78: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 91: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 96: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 102: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 104: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 107: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 119: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 124: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 130: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 132: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 135: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 147: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 152: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 158: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 160: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 163: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 175: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 180: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 186: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 188: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 191: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 202: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 207: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 213: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 215: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 218: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 230: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 231: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 237: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 239: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../main.c", line 242: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 76 (col. 23): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+Finished building: "../main.c"
+ 
+Building file: "../system_msp432p401r.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="system_msp432p401r.d_raw"  "../system_msp432p401r.c"
+"../system_msp432p401r.c", line 156: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+"../system_msp432p401r.c", line 189: remark #2623-D: (ULP 5.4) Detected an assignment to a type with size less than int. To avoid unnecessary sign extension, use int-sized types for local varaibles and convert to smaller types for static storage.
+Finished building: "../system_msp432p401r.c"
+ 
+Building file: "../systick.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/GVSU-EGR-326/lab/lab-5/sources" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="systick.d_raw"  "../systick.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+"../systick.c", line 21: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+Finished building: "../systick.c"
+ 
+Building target: "Lab5.out"
+Invoking: Arm Linker
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Lab5.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Lab5_linkInfo.xml" --rom_model -o "Lab5.out" "./I2C.obj" "./keypad.obj" "./main.obj" "./pinsInint.obj" "./readInputs.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "./systick.obj" "../msp432p401r.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 4 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 5 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 6 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 7 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 8 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 9 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 10 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "Lab5.out"
+ 
+
+**** Build Finished ****

@@ -1,0 +1,51 @@
+
+**** Build of configuration Debug for project EGR326_Lab5_Part03 ****
+
+"C:\\ti\\ccs1040\\ccs\\utils\\bin\\gmake" -k -j 8 all -O 
+ 
+Building file: "../main.c"
+Invoking: Arm Compiler
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include" --include_path="C:/ti/ccs1040/ccs/ccs_base/arm/include/CMSIS" --include_path="C:/Users/samde/OneDrive/Desktop/EGR 326/Lab/CCS/EGR326_Lab5_Part03" --include_path="C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi --preproc_with_compile --preproc_dependency="main.d_raw"  "../main.c"
+"..\pinsInint.h", line 53: warning #93-D: identifier-list parameters may only be used in a function definition
+"../main.c", line 26: warning #225-D: function "SysTickInit" declared implicitly
+"../main.c", line 95: warning #225-D: function "SysTickTimer" declared implicitly
+"../main.c", line 25: warning #179-D: variable "timeDateWrite" was declared but never referenced
+"../main.c", line 28: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+"../main.c", line 30: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+"../main.c", line 36: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 41: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+"../main.c", line 49: remark #1527-D: (ULP 2.1) Detected SW delay loop using __delay_cycles. Recommend using a timer module instead
+"../main.c", line 58: remark #1527-D: (ULP 2.1) Detected SW delay loop using empty loop. Recommend using a timer module instead
+"../main.c", line 61: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 62: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 63: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 64: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 74: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 77: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 79: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 82: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 85: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 86: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 88: remark #1532-D: (ULP 5.3) Detected printf() operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 45 (col. 15): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+"../main.c", line 86 (col. 31): remark #1531-D: (ULP 5.2) Detected floating point operation(s). Recommend moving them to RAM during run time or not using as these are processing/power intensive
+Finished building: "../main.c"
+ 
+Building target: "EGR326_Lab5_Part03.out"
+Invoking: Arm Linker
+"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"EGR326_Lab5_Part03.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="EGR326_Lab5_Part03_linkInfo.xml" --rom_model -o "EGR326_Lab5_Part03.out" "./I2C.obj" "./Read_Keypad.obj" "./SysTickTimer.obj" "./main.obj" "./pinsInint.obj" "./readInputs.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd"  -llibc.a 
+<Linking>
+remark #10371-D: (ULP 1.1) Detected no uses of low power mode state changing instructions
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 2 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 3 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 4 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 5 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 6 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 7 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 8 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 9 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+remark #10372-D: (ULP 4.1) Detected uninitialized Port 10 in this project. Recommend initializing all unused ports to eliminate wasted current consumption on unused pins.
+Finished building target: "EGR326_Lab5_Part03.out"
+ 
+
+**** Build Finished ****

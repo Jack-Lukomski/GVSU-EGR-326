@@ -1,0 +1,1 @@
+"./EGR326_Lab3_Part2.obj" "./SysTickTimer.obj" "./sonar.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd" -llibc.a 

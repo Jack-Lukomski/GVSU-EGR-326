@@ -1,0 +1,26 @@
+#include "msp.h"
+#include "spi.h"
+
+
+/**
+ * main.c
+ */
+
+int i;
+
+void main(void)
+{
+	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
+
+	spi_init();
+    spi_write(0xf, 0x00);           //normal operation, data 1 for display test
+	spi_write(0x9, 0xff);           //set decode mode
+	spi_write(0xa, 0x0f);           //intensity
+    spi_write(0xb, 0x06);           //display on digits, data for amount of digits
+    spi_write(0x0c, 0x01);          //
+	while(1){
+	    __delay_cycles(3000000);
+	    i++;
+	    spi_write(0x01, i);
+	}
+}

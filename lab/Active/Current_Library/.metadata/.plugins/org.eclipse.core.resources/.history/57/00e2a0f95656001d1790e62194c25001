@@ -1,0 +1,21 @@
+#include "spi.h"
+#include "stdint.h"
+
+void spi_init(void)
+{
+    SSPORT->SEL0 &=~ SSPIN;
+    SSPORT->SEL1 &=~ SSPIN;
+    SSPORT->DIR |= SSPIN;
+    SSPORT->OUT |= SSPIN;
+
+    SPIPORT->SEL0 |= CLK | MOSI;
+    SPIPORT->SEL1 &=~ (CLK | MOSI);
+    EUSCI_B2->CTLW0 = 0X0001;
+    EUSCI_B2->CTLW0 = 0XE9C1;
+    EUSCI_B2->CTLW0 &=~ 0X0001;
+}
+
+void spi_write(uint8_t)
+{
+
+}

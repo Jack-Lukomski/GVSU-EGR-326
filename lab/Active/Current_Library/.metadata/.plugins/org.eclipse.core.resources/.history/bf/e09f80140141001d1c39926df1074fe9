@@ -1,0 +1,52 @@
+/*********************************************************************************
+* Name:             Samuel DeJong
+* Course:           EGR 326 -
+* Project:          Lab 05 -
+* File:             EGR326_Lab5_Part1.c
+* Description:
+* ********************************************************************************/
+
+#include <msp.h>
+#include <stdint.h>
+#include <stdio.h>
+#include "SysTickTimer.h"
+#include "Read_Keypad.h"
+#include "I2C.h"
+
+/**********************************************************************************
+ * Pin connections for keypad
+ *      MSP432 Pins |   Keypad  |   Function
+ *      ---------------------------------------
+ *       P4.0       |   7       |   Row 1
+ *       P4.1       |   6       |   Row 2
+ *       P4.2       |   5       |   Row 3
+ *       P4.3       |   4       |   Row 4
+ *       --------------------------------------
+ *       P4.4       |   3       |   Column 1
+ *       P4.5       |   2       |   Column 2
+ *       P4.6       |   1       |   Column 3
+ **********************************************************************************
+ * Pin connections for RTC
+ *      MSP432 Pins |   RTC  |   Function
+ *      ---------------------------------------
+ *       P1.6       |    SDA      |
+ *       P1.7       |    SCL      |
+ **********************************************************************************/
+
+
+void main(void)
+{
+    int pressed;
+    SysTickInit();
+    keypad_initialize();
+    i2c_init();
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
+    while(1){
+        pressed = Read_Keypad();                    //check if key is entered
+//        if(pressed){
+//            print_keys(key);                        //call function to print
+//            printf("Press a key \n");
+//        }
+        SysTickTimer(10);                           //wait 10 ms before reading again
+    }
+}

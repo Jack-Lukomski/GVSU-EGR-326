@@ -1,0 +1,22 @@
+#include "msp.h"
+#include "spi.h"
+
+
+/**
+ * main.c
+ */
+void main(void)
+{
+	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
+
+	spi_init();
+	spi_write(0x0f, 0x01);
+//    spi_write(0x0c, 0x01);
+//    spi_write(0xf, 0x00);
+//	spi_write(0x9, 0xff);
+//	spi_write(0xa, 0x0f);
+//    spi_write(0xb, 0x03);
+	while(1){
+	    spi_write(0x01, 0x01);
+	}
+}

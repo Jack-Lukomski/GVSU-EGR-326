@@ -1,0 +1,23 @@
+/*********************************************************************************
+* Name:             Samuel DeJong
+* Course:           EGR 326 -
+* Project:          Lab 05 -
+* File:             EGR326_Lab5_Part1.c
+* Description:
+* ********************************************************************************/
+#include "msp.h"
+
+
+
+void i2c_init(void){
+    P1->SEL0 |= BIT6 | BIT7;
+    P1->SEL0 &= ~(BIT6 | BIT7);
+    EUSCI_B0->CTLW0 |= EUSCI_B_CTLW0_SWRST;         // Hold EUSCI_B0 module in reset state
+    EUSCI_B0->CTLW0 |= EUSCI_B_CTLW0_MODE_3|EUSCI_B_CTLW0_MST|EUSCI_B_CTLW0_SYNC;   //I2C mode, set as master, synchronous
+    EUSCI_B0->CTLW0 |= EUSCI_B_CTLW0_UCSSEL_2;       // Select SMCLK as EUSCI_B0 clock
+    EUSCI_B0->BRW = 0x001E;      // Set BITCLK = BRCLK / (UCBRx+1) = 3 MHz / 30 = 100 kHz
+    EUSCI_B0->I2CSA = 0b1101000;
+    EUSCI_B0->CTLW0 &= ~EUSCI_B_CTLW0_SWRST;         // Clear SWRST to resume operation
+}
+
+
