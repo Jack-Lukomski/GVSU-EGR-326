@@ -1,6 +1,7 @@
-#include <stdio.h>
+#include <stdint.h>
 #include <stdbool.h>
 #include <msp.h>
+#include <stdio.h>
 #include "stepperMotor.h"
 #include "ST7735.h"
 #include "clk48MHz.h"
@@ -22,7 +23,7 @@ static const port2GPIO_t motorPortPins[4] =
 
 
 uint32_t time;
-int key = 5;
+int key;
 bool hall;
 double rpm;
 
@@ -50,13 +51,13 @@ void main(void)
 //    __delay_cycles(30000000);
 //    ST7735_FillScreen(ST7735_WHITE);
 //    ST7735_DrawString(4, 6, "C L O S E D", ST7735_BLACK);
-
-//    printf("\nEnter a number 0 through 5\n");
-//    __delay_cycles(30000);
+//
+    puts("\nEnter a number 0 through 5 \n");
 //    scanf("%d", &key);
 
     while(1)
     {
+        scanf("%d", key);
         if(key==5)
             time = 50;
         else
