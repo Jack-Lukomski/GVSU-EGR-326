@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <?fileVersion 4.0.0?><cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
 	<storageModule configRelations="2" moduleId="org.eclipse.cdt.core.settings">
+<<<<<<< Updated upstream:lab/Active/Current_Library/EGR326_Lab3_Part1/.cproject
 		<cconfiguration id="com.ti.ccstudio.buildDefinitions.MSP432.Debug.1429334299">
 			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.ti.ccstudio.buildDefinitions.MSP432.Debug.1429334299" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+=======
+		<cconfiguration id="com.ti.ccstudio.buildDefinitions.MSP432.Debug.1356781522">
+			<storageModule buildSystemId="org.eclipse.cdt.managedbuilder.core.configurationDataProvider" id="com.ti.ccstudio.buildDefinitions.MSP432.Debug.1356781522" moduleId="org.eclipse.cdt.core.settings" name="Debug">
+>>>>>>> Stashed changes:lab/lab-8/sources/.cproject
 				<externalSettings/>
 				<extensions>
 					<extension id="com.ti.ccstudio.binaryparser.CoffParser" point="org.eclipse.cdt.core.BinaryParser"/>

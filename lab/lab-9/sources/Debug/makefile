@@ -10,12 +10,17 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
-"./I2C.obj" \
+"./GPIO_Interrupt.obj" \
+"./ST7735.obj" \
+"./Toggle.obj" \
+"./clk48MHz.obj" \
 "./main.obj" \
 "./pinsInint.obj" \
-"./readInputs.obj" \
 "./startup_msp432p401r_ccs.obj" \
+"./stepperMotor.obj" \
 "./system_msp432p401r.obj" \
+"./systick.obj" \
+"./timer32.obj" \
 "../msp432p401r.cmd" \
 $(GEN_CMDS__FLAG) \
 -llibc.a \
@@ -125,50 +130,42 @@ endif
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXE_OUTPUTS += \
-Lab5.out \
+lab9.out \
 
 EXE_OUTPUTS__QUOTED += \
-"Lab5.out" \
+"lab9.out" \
 
 BIN_OUTPUTS += \
-Lab5.hex \
+lab9.hex \
 
 BIN_OUTPUTS__QUOTED += \
-"Lab5.hex" \
+"lab9.hex" \
 
 
 # All Target
 all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
-	@$(MAKE) --no-print-directory -Onone "Lab5.out"
+	@$(MAKE) --no-print-directory -Onone "lab9.out"
 
 # Tool invocations
-Lab5.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
+lab9.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: "$@"'
 	@echo 'Invoking: Arm Linker'
-<<<<<<< Updated upstream:lab/lab-5/sources/Debug/makefile
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"Lab5.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="Lab5_linkInfo.xml" --rom_model -o "Lab5.out" $(ORDERED_OBJS)
-=======
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"lab7.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="lab7_linkInfo.xml" --rom_model -o "lab7.out" $(ORDERED_OBJS)
->>>>>>> Stashed changes:lab/lab-7/sources/Debug/makefile
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armcl" -mv7M4 --code_state=16 --float_support=FPv4SPD16 -me --advice:power=all --define=__MSP432P401R__ --define=ccs -g --gcc --diag_warning=225 --diag_wrap=off --display_error_number --abi=eabi -z -m"lab9.map" --heap_size=1024 --stack_size=512 -i"C:/ti/ccs1040/ccs/ccs_base/arm/include" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/lib" -i"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include" --reread_libs --diag_wrap=off --display_error_number --warn_sections --xml_link_info="lab9_linkInfo.xml" --rom_model -o "lab9.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: "$@"'
 	@echo ' '
 
-Lab5.hex: $(EXE_OUTPUTS)
+lab9.hex: $(EXE_OUTPUTS)
 	@echo 'Building secondary target: "$@"'
 	@echo 'Invoking: Arm Hex Utility'
-<<<<<<< Updated upstream:lab/lab-5/sources/Debug/makefile
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "Lab5.hex" $(EXE_OUTPUTS__QUOTED)
-=======
-	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "lab7.hex" $(EXE_OUTPUTS__QUOTED)
->>>>>>> Stashed changes:lab/lab-7/sources/Debug/makefile
+	"C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/bin/armhex" --memwidth=8 --romwidth=8 --diag_wrap=off -o "lab9.hex" $(EXE_OUTPUTS__QUOTED)
 	@echo 'Finished building secondary target: "$@"'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(BIN_OUTPUTS__QUOTED)$(EXE_OUTPUTS__QUOTED)
-	-$(RM) "I2C.obj" "main.obj" "pinsInint.obj" "readInputs.obj" "startup_msp432p401r_ccs.obj" "system_msp432p401r.obj" 
-	-$(RM) "I2C.d" "main.d" "pinsInint.d" "readInputs.d" "startup_msp432p401r_ccs.d" "system_msp432p401r.d" 
+	-$(RM) "GPIO_Interrupt.obj" "ST7735.obj" "Toggle.obj" "clk48MHz.obj" "main.obj" "pinsInint.obj" "startup_msp432p401r_ccs.obj" "stepperMotor.obj" "system_msp432p401r.obj" "systick.obj" "timer32.obj" 
+	-$(RM) "GPIO_Interrupt.d" "ST7735.d" "Toggle.d" "clk48MHz.d" "main.d" "pinsInint.d" "startup_msp432p401r_ccs.d" "stepperMotor.d" "system_msp432p401r.d" "systick.d" "timer32.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 
