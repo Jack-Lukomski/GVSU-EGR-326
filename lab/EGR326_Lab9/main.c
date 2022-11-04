@@ -5,8 +5,8 @@
 #include "stepperMotor.h"
 #include "ST7735.h"
 #include "clk48MHz.h"
-#include "GPIO_Interrupt.h"
 #include "timer32.h"
+#include "Read_Keypad.h"
 
 port2GPIO_t motor_a;
 port2GPIO_t motor_b;
@@ -23,9 +23,9 @@ static const port2GPIO_t motorPortPins[4] =
 
 
 uint32_t time;
-int key;
 bool hall;
 double rpm;
+bool pressed;
 
 void main(void)
 {
@@ -41,6 +41,7 @@ void main(void)
     vHall_effect_pinsInit();
     vMain_Initlize48MHz();
     vTimer32_init();
+    keypad_initialize();
     NVIC->ISER[1] = 1 << ((PORT5_IRQn) & 31);
     __enable_interrupt();
 
@@ -51,17 +52,27 @@ void main(void)
 //    __delay_cycles(30000000);
 //    ST7735_FillScreen(ST7735_WHITE);
 //    ST7735_DrawString(4, 6, "C L O S E D", ST7735_BLACK);
-//
+
+
     puts("\nEnter a number 0 through 5 \n");
-//    scanf("%d", &key);
 
     while(1)
     {
-        scanf("%d", key);
-        if(key==5)
-            time = 50;
-        else
-            time = 500 - key*100;
+        pressed = Read_Keypad();
+        if(pressed)
+        {
+            if((key>0 && key<6) || key == 11)
+            {
+                if (key==11)
+                    key=0;
+                if(key==5)
+                    time = 50;
+                else
+                    time = 500 - key*100;
+            }
+            else
+                pressed = 0;
+        }
         vStepperMotor_turnDeg(motorPortPins, 1, clockwise, time);
     }
 }

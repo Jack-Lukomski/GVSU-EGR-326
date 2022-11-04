@@ -8,6 +8,8 @@
 ********************************************************************************/
 
 #include "stdint.h"
+#include "stdbool.h"
+
 uint8_t key;
 
 #ifndef READ_KEYPAD_H_

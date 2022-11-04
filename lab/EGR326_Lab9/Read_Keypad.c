@@ -9,7 +9,6 @@
 * Code inspired by GVSU EGR 226 Lecture Slides
 ********************************************************************************/
 
-#include <SysTickTimer.h>
 #include <msp.h>
 #include <stdint.h>
 #include "Read_Keypad.h"
@@ -30,7 +29,7 @@ uint8_t Read_Keypad(){
         P4->DIR = 0x00;                     //safety measure ensure all columns are inputs
         P4->DIR |= BIT(4+col);              //set column to output
         P4->OUT &=~BIT(4+col);              //set column to ground
-        SysTickTimer(10);                   //delay for moment so read is good
+        __delay_cycles(100);                   //delay for moment so read is good
         row=P4->IN & 0x0F;                  //read input of port 4
         //effective debounce
         while( !(P4->IN & BIT0) | !(P4->IN & BIT1) | !(P4->IN & BIT2) | !(P4->IN & BIT3));
@@ -38,10 +37,10 @@ uint8_t Read_Keypad(){
     }
     P4->DIR = 0x00;                         //return columns to inputs
     if (col==3) return 0;
-    if (row==0x0e)  key = 48+col+1;         //1-3
-    if (row==0x0d)  key = 51+col+1;         //4-6
-    if (row==0x0b)  key = 54+col+1;         //7-9
-    if (row==0x07)  key = 57+col+1;         //10-12
+    if (row==0x0e)  key = col+1;         //1-3
+    if (row==0x0d)  key = col+4;         //4-6
+    if (row==0x0b)  key = col+7;         //7-9
+    if (row==0x07)  key = col+10;         //10-12
 
     /*******************************************
      *  * = 10  |  0 = 11   |  #=12
