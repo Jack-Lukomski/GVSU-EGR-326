@@ -17,7 +17,7 @@ void vMain_Initlize48MHz(void)
     //Configure HFXT to use 48MHz crystal, source to MCLK & HSMCLK*
        PJ->SEL0 |= BIT2 | BIT3;                     // Configure PJ.2/3 for HFXT function
        PJ->SEL1 &= ~(BIT2 | BIT3);
-       CS->KEY = CS_KEY_VAL;                       // Unlock CS module for register access
+       CS->KEY = CS_KEY_VAL ;                       // Unlock CS module for register access
        CS->CTL2 |= CS_CTL2_HFXT_EN | CS_CTL2_HFXTFREQ_6 | CS_CTL2_HFXTDRIVE;
           while(CS->IFG & CS_IFG_HFXTIFG)
                     CS->CLRIFG |= CS_CLRIFG_CLR_HFXTIFG;
