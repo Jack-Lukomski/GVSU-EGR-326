@@ -8,7 +8,7 @@
 #ifndef READINPUTS_H_
 #define READINPUTS_H_
 
-#define MIN_DEBOUNCE_VAL 0xe001
+#define MIN_DEBOUNCE_VAL 0xe000
 #define MAX_DEBOUNCE_VAL 0xf000
 #include "pinsInint.h"
 #include <stdbool.h>
