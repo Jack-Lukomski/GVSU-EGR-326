@@ -72,7 +72,9 @@ uint16_t xI2C_Write(int8_t slaveAddress, uint8_t memoryAddress, uint8_t startVal
       return status;
     }
   }
+
   UCB0TXBUF = startValue&0xFF;            // TXBUF[7:0] is data
+
   while(UCB0STATW&0x0010)
   {
     if(UCB0IFG&0x0030)
@@ -82,6 +84,7 @@ uint16_t xI2C_Write(int8_t slaveAddress, uint8_t memoryAddress, uint8_t startVal
       return status;
     }
   }
+
   return 0;
 }
 
@@ -98,19 +101,19 @@ uint16_t xI2C_WriteBurst(int8_t slaveAddress, uint8_t memoryAddress, int byteCou
 
   UCB0CTLW0 = ((UCB0CTLW0&~0x0004) | 0x0012);   // clear bit2 (UCTXSTP) for no transmit stop condition
 
-  while(UCB0CTLW0&0x0002){};         // wait for slave address sent
+  while(!(UCB0CTLW0&0x0002)){};         // wait for slave address sent
 
   UCB0TXBUF = memoryAddress&0xFF;    // TXBUF[7:0] is data
 
-  while((UCB0IFG&0x0002) == 0)
-  {
-    if(UCB0IFG&0x0030)
-    {
-      status = UCB0IFG;              // snapshot flag register for calling program
-      vI2C_Initlize();                    // reset to known state
-      return status;
-    }
-  }
+//  while((UCB0IFG&0x0002) == 0)
+//  {
+//    if(UCB0IFG&0x0030)
+//    {
+//      status = UCB0IFG;              // snapshot flag register for calling program
+//      vI2C_Initlize();                    // reset to known state
+//      return status;
+//    }
+//  }
 
   int bytesTransmitted;
   for(bytesTransmitted = 0; bytesTransmitted < byteCount; bytesTransmitted++)
@@ -127,15 +130,15 @@ uint16_t xI2C_WriteBurst(int8_t slaveAddress, uint8_t memoryAddress, int byteCou
       EUSCI_B0->TXBUF = *(data + bytesTransmitted);
   }
 
-  while(UCB0STATW&0x0010)
-  {
-    if(UCB0IFG&0x0030)
-    {
-      status = UCB0IFG;              // snapshot flag register for calling program
-      vI2C_Initlize();                    // reset to known state
-      return status;
-    }
-  }
+//  while(UCB0STATW&0x0010)
+//  {
+//    if(UCB0IFG&0x0030)
+//    {
+//      status = UCB0IFG;              // snapshot flag register for calling program
+//      vI2C_Initlize();                    // reset to known state
+//      return status;
+//    }
+//  }
   while((EUSCI_B0->IFG & 2));
   EUSCI_B0->CTLW0 |= 0x0004;
   while(!(EUSCI_B0->CTLW0 & 4));
@@ -179,4 +182,3 @@ bool xI2C_Readburst(uint8_t slaveAddress, uint8_t memoryAddress, uint8_t byteCou
 
     return true;
 }
-
