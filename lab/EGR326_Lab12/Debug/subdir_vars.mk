@@ -10,6 +10,7 @@ CMD_SRCS += \
 
 C_SRCS += \
 ../ADC.c \
+../ST7735.c \
 ../SysTickTimer.c \
 ../clk48MHz.c \
 ../main.c \
@@ -18,6 +19,7 @@ C_SRCS += \
 
 C_DEPS += \
 ./ADC.d \
+./ST7735.d \
 ./SysTickTimer.d \
 ./clk48MHz.d \
 ./main.d \
@@ -26,6 +28,7 @@ C_DEPS += \
 
 OBJS += \
 ./ADC.obj \
+./ST7735.obj \
 ./SysTickTimer.obj \
 ./clk48MHz.obj \
 ./main.obj \
@@ -34,6 +37,7 @@ OBJS += \
 
 OBJS__QUOTED += \
 "ADC.obj" \
+"ST7735.obj" \
 "SysTickTimer.obj" \
 "clk48MHz.obj" \
 "main.obj" \
@@ -42,6 +46,7 @@ OBJS__QUOTED += \
 
 C_DEPS__QUOTED += \
 "ADC.d" \
+"ST7735.d" \
 "SysTickTimer.d" \
 "clk48MHz.d" \
 "main.d" \
@@ -50,6 +55,7 @@ C_DEPS__QUOTED += \
 
 C_SRCS__QUOTED += \
 "../ADC.c" \
+"../ST7735.c" \
 "../SysTickTimer.c" \
 "../clk48MHz.c" \
 "../main.c" \

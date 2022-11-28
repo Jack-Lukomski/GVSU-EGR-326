@@ -10,7 +10,7 @@
 #include "SysTickTimer.h"
 #include "stdint.h"
 #include "clk48MHz.h"
-//#include "ST7735.h"
+#include "ST7735.h"
 
 #define PWM_Period 60000
 #define resetSet 0xE0
@@ -21,6 +21,8 @@
     float ADCvoltage;
     uint16_t ADCval;
     int lightVal;
+    int lightValBuff;
+    char lightVal_string[3];
 
     void PWM_set(int duty);
     void PWM_init(void);
@@ -34,14 +36,8 @@ void main(void)
     SysTick_init();
     PWM_init();
 
-//    volatile uint16_t dutyperiod = dutyCycle * PWM_Period;
-
-//    ST7735_InitR(INITR_GREENTAB);
-//    ST7735_FillScreen(ST7735_WHITE);
-
-//    char c = '1';
-//
-//    ST7735_DrawCharS(6, 6, c, ST7735_BLACK, ST7735_WHITE, 2);
+    ST7735_InitR(INITR_BLACKTAB);
+    ST7735_FillScreen(ST7735_WHITE);
 
 
 
@@ -51,9 +47,18 @@ void main(void)
         while ( !ADC14->IFGR0 & BIT0 );     //wait for conversation to complete
         ADCval = ADC14->MEM[0];              // get the value from the ADC using A0
         ADCvoltage = (ADCval * 3.3) / 16384;
-        lightVal =  (ADCvoltage-0.5) * (10/3)  ;
-        printf("14 bit value is: %d \n\t ADC voltage: %f \n\t", ADCval, ADCvoltage );
-//        ST7735_DrawString(7, 6, "L C D", ST7735_BLACK);
+        lightValBuff = lightVal;
+        lightVal =  (int)((ADCvoltage) * (4));
+
+        sprintf(lightVal_string, "%d", lightVal);
+//        printf("14 bit value is: %d \n\t ADC voltage: %f \n\t", ADCval, ADCvoltage );
+        if((lightValBuff != lightVal))
+                ST7735_FillScreen(ST7735_WHITE);
+        if(lightVal>9)
+            ST7735_DrawString(8, 8, "1 0", ST7735_BLACK);
+        else
+            ST7735_DrawString(8, 8, lightVal_string, ST7735_BLACK);
+
         SysTickTimer_ms(100);                  // SysTick delay for 2 seconds
         PWM_set(lightVal*10);
 

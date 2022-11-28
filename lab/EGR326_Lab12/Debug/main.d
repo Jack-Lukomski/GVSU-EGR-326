@@ -24,6 +24,7 @@ main.obj: C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.
 main.obj: ../ADC.h
 main.obj: ../SysTickTimer.h
 main.obj: ../clk48MHz.h
+main.obj: ../ST7735.h
 
 ../main.c:
 
@@ -72,4 +73,6 @@ C:/ti/ccs1040/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdarg.h:
 ../SysTickTimer.h:
 
 ../clk48MHz.h:
+
+../ST7735.h:
 

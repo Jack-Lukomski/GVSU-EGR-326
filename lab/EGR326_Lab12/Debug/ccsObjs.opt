@@ -1,1 +1,1 @@
-"./ADC.obj" "./SysTickTimer.obj" "./clk48MHz.obj" "./main.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd" -llibc.a 
+"./ADC.obj" "./ST7735.obj" "./SysTickTimer.obj" "./clk48MHz.obj" "./main.obj" "./startup_msp432p401r_ccs.obj" "./system_msp432p401r.obj" "../msp432p401r.cmd" -llibc.a 
