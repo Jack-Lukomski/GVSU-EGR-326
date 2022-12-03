@@ -24,9 +24,9 @@ typedef enum e_menuTransistionStates
 
 void vMenu_Init(void);
 
-
-void vMenu_MainScreen(void);
-void vMenu_FillOptionMenu(void);
+typedef void(*vMenu_menuStateMachiene_ptr)(encoder_t * s_encoderData);
+void vMenu_MainScreen(encoder_t * s_encoderData);
+void vMenu_FillOptionMenu(encoder_t * s_encoderData);
 void vMenu_UpdateOptionMenu(encoder_t * s_encoderData);
 
 static void vMenu_DrawString(int x, int y, int textColor, int colorBg, char * string, int fontSize);
@@ -38,8 +38,8 @@ static void vMenu_OpenNotePeriodMenu(encoder_t * s_encoderData);
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData);
 static void vMenu_OpenQuitMenu(encoder_t * s_encoderData);
 
-int intToStr(int x, char str[], int d);
-void reverse(char* str, int len);
+static int vMenu_intToStr(int convertValue, char * convertedStr, uint8_t numberBase);
+static void vMenu_reverseStr(char * convertedStr, int StrLen);
 
 void vMenu_UpdateScreen(encoder_t * s_encoderData);
 

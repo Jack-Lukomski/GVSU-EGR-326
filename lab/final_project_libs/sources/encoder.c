@@ -32,6 +32,10 @@ void vEncoder_GetEncoderData(encoder_t * s_encoderData)
 
     if(!(P4->IN & BIT(4)))
     {
-        s_encoderData->b_buttonStatus = true;
+        __delay_cycles(3000);
+        if(!(P4->IN & BIT(4)))
+        {
+            s_encoderData->b_buttonStatus = true;
+        }
     }
 }
