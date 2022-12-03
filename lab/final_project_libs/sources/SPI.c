@@ -24,9 +24,6 @@ void vSPI_writeByte(uint8_t userAddress, uint8_t userData)
     while(!(EUSCI_A1->IFG & 2)); // Delay 10ms
     EUSCI_A1->TXBUF = userAddress; // data out
     while(EUSCI_A1->STATW & 1);// Delay another 10ms
-    vToggle_turnPinLow(s_csPin7Seg); // Close up the cs line
-
-    vToggle_turnPinHigh(s_csPin7Seg); // Turning CS pin low so data can be sent to 7Seg
     while(!(EUSCI_A1->IFG & 2)); // Delay 10ms
     EUSCI_A1->TXBUF = userData; // data out
     while(EUSCI_A1->STATW & 1);

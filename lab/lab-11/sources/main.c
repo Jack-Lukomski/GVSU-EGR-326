@@ -12,8 +12,8 @@ uint8_t dateRTC_Data[5] = {0x12, 0x03, 0x04, 0x45, 0x01};
 uint8_t RTC_RecieveBuf;
 uint8_t EEPROM_Recievebuf[5];
 uint8_t EEPROM_TxBus[5];
-uint16_t EEPROM_MemoryAddress = 0;
-uint16_t EEPROM_ReadAddress = 0;
+uint16_t EEPROM_MemoryAddress = 15;
+uint16_t EEPROM_ReadAddress = 15;
 
 port2GPIO_t s_StoreTimeButton;
 port2GPIO_t s_PrintTimeButton;
@@ -89,7 +89,7 @@ void vMain_StoreRTCTime(void)
 
     EEPROM_MemoryAddress += 5;
 
-    if(EEPROM_MemoryAddress > 25)
+    if(EEPROM_MemoryAddress > 25+15)
     {
         EEPROM_MemoryAddress = 0;
     }
@@ -115,7 +115,7 @@ void vMain_printTime(void)
 
     EEPROM_ReadAddress += 5;
 
-    if(EEPROM_ReadAddress > 25)
+    if(EEPROM_ReadAddress > 25+15)
     {
         EEPROM_ReadAddress = 0;
     }

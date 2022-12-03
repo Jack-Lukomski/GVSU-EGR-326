@@ -63,25 +63,26 @@ void main(void)
         {
             vMain_CCWTurn();
         }
-        if(encoder_count == userInputtedValue && stateCount == 2)
-        {
-            vToggle_turnPinLow(red_LED);
-            vToggle_turnPinHigh(blue_LED);
-        }
-        if(encoder_count*-1 == userInputtedValue && stateCount == 2)
-        {
-            vToggle_turnPinLow(blue_LED);
-            vToggle_turnPinHigh(red_LED);
-        }
-        if(xReadInputs_read(encoder_button) != true)
-        {
-            printf("Resetting..\n");
-            vToggle_turnPinLow(red_LED);
-            vToggle_turnPinLow(blue_LED);
-            userInputtedValue = 1;
-            encoder_count = 0;
-            stateCount = 0;
-        }
+        printf("%d\n", encoder_count);
+//        if(encoder_count == userInputtedValue && stateCount == 2)
+//        {
+//            vToggle_turnPinLow(red_LED);
+//            vToggle_turnPinHigh(blue_LED);
+//        }
+//        if(encoder_count*-1 == userInputtedValue && stateCount == 2)
+//        {
+//            vToggle_turnPinLow(blue_LED);
+//            vToggle_turnPinHigh(red_LED);
+//        }
+//        if(xReadInputs_read(encoder_button) != true)
+//        {
+//            printf("Resetting..\n");
+//            vToggle_turnPinLow(red_LED);
+//            vToggle_turnPinLow(blue_LED);
+//            userInputtedValue = 1;
+//            encoder_count = 0;
+//            stateCount = 0;
+//        }
     }
 }
 
