@@ -5,11 +5,27 @@
  *  Created on: Nov 30, 2022
  *      Author: jtluk
  */
+
+uint8_t month, day, year;
+
+static const uint8_t decimalToHex_t[60] =
+{
+ 0x00, 0x01, 0x02, 0x03, 0x4, 0x05, 0x06,
+ 0x07, 0x08, 0x09, 0x10, 0x11, 0x12, 0x13,
+ 0x14, 0x15, 0x16, 0x17, 0x18, 0x19, 0x20,
+ 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27,
+ 0x28, 0x29, 0x30, 0x31, 0x32, 0x33, 0x34,
+ 0x35, 0x36, 0x37, 0x38, 0x39, 0x40, 0x41,
+ 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48,
+ 0x49, 0x50, 0x51, 0x52, 0x53, 0x54, 0x55,
+ 0x56, 0x57, 0x58, 0x59
+};
+
 static const vMenu_menuOption_ptr openMenuSelect_t[4] =
 {
  vMenu_OpenQuitMenu,
  vMenu_OpenSetTimeMenu,
- vMenu_OpenNotePeriodMenu,
+ vMenu_OpenSetDateMenu,
  vMenu_OpenPlayNoteMenu,
 };
 
@@ -31,8 +47,6 @@ uint8_t optionMenuArrowPosition[4] = {20, 33, 46, 59};
 
 void vMenu_UpdateScreen(encoder_t * s_encoderData)
 {
-    currEncoderVal = s_encoderData->encoderVal;
-
     if(s_encoderData->b_buttonStatus && menuDisplayState == mainScreen)
     {
         menuDisplayState = menuSelectScreen;
@@ -40,7 +54,7 @@ void vMenu_UpdateScreen(encoder_t * s_encoderData)
         s_encoderData->b_buttonStatus = false;
     }
 
-    if(currEncoderVal != prevEncoderVal && menuDisplayState == menuSelectScreen)
+    if(menuDisplayState == menuSelectScreen)
     {
         vMenu_UpdateOptionMenu(s_encoderData);
     }
@@ -48,11 +62,11 @@ void vMenu_UpdateScreen(encoder_t * s_encoderData)
     if(s_encoderData->b_buttonStatus && menuDisplayState == selectedMenuItem)
     {
         s_encoderData->b_buttonStatus = false;
+        __delay_cycles(300000);
         openMenuSelect_t[menuSelectState](s_encoderData);
+        s_encoderData->b_buttonStatus = false;
         menuDisplayState = mainScreen;
     }
-
-    prevEncoderVal = currEncoderVal;
 }
 
 void vMenu_Init(void)
@@ -64,19 +78,55 @@ void vMenu_Init(void)
 
 void vMenu_MainScreen(encoder_t * s_encoderData)
 {
+//    uint8_t currentDate_ptr[3];
+//    vfinalPrjTime_getMDYdate(currentDate_ptr);
+
+    uint8_t offSet = 25;
+
     ST7735_FillScreen(0x0000);
     vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "   Sound Generator   ", 1);
+
+    if(month < 10)
+    {
+        ST7735_DrawChar(0+offSet, 140, '0', 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(8+offSet, 140, month + 48, 0xFFFF, 0x0000, 1);
+    }
+    else
+    {
+        ST7735_DrawChar(0+offSet, 140, month/10 + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(8+offSet, 140, month - ((month/10)*10) + 48, 0xFFFF, 0x0000, 1);
+    }
+
+    ST7735_DrawChar(16+offSet, 140, '/', 0xFFFF, 0x0000, 1);
+
+    if(day < 10)
+    {
+        ST7735_DrawChar(24+offSet, 140, '0', 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(32+offSet, 140, day + 48, 0xFFFF, 0x0000, 1);
+    }
+    else
+    {
+        ST7735_DrawChar(24+offSet, 140, day/10 + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(32+offSet, 140, day - ((day/10)*10) + 48, 0xFFFF, 0x0000, 1);
+    }
+
+    ST7735_DrawChar(40+offSet, 140, '/', 0xFFFF, 0x0000, 1);
+
+    ST7735_DrawChar(48+offSet, 140, '2', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(56+offSet, 140, '0', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(64+offSet, 140, year/10 + 48, 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(72+offSet, 140, year - ((year/10)*10) + 48, 0xFFFF, 0x0000, 1);
 }
 
 void vMenu_FillOptionMenu(encoder_t * s_encoderData)
 {
-    ST7735_FillScreen(0xFFFF);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "   Function Select   ", 1);
+    ST7735_FillScreen(ST7735_Color565(198, 237, 175));
+    vMenu_DrawString(0, 2, 0x0000, ST7735_Color565(198, 237, 175), "   Function Select   ", 1);
     ST7735_DrawFastHLine(0, 15, 128, 0x0000);
-    vMenu_DrawString(0, 20, 0x0000, 0xFFFF, "     1. Set Time    ", 1);
-    vMenu_DrawString(0, 33, 0x0000, 0xFFFF, "    2. Note Period  ", 1);
-    vMenu_DrawString(0, 46, 0x0000, 0xFFFF, "    3. Play Note    ", 1);
-    vMenu_DrawString(0, 59, 0x0000, 0xFFFF, "      4. Quit       ", 1);
+    vMenu_DrawString(0, 20, 0x0000, ST7735_Color565(198, 237, 175), "     1. Set Time    ", 1);
+    vMenu_DrawString(0, 33, 0x0000, ST7735_Color565(198, 237, 175), "    2. Set Date  ", 1);
+    vMenu_DrawString(0, 46, 0x0000, ST7735_Color565(198, 237, 175), "    3. Play Note    ", 1);
+    vMenu_DrawString(0, 59, 0x0000, ST7735_Color565(198, 237, 175), "      4. Quit       ", 1);
 }
 
 void vMenu_UpdateOptionMenu(encoder_t * s_encoderData)
@@ -86,11 +136,11 @@ void vMenu_UpdateOptionMenu(encoder_t * s_encoderData)
         currEncoderVal = s_encoderData->encoderVal;
         if(currEncoderVal != prevEncoderVal)
         {
-            if(menuSelectState == 0 && !(s_encoderData->b_buttonStatus))
+            if(menuSelectState == 0)
             {
                 vMenu_moveSelectionArrow(optionMenuArrowPosition[menuSelectState], optionMenuArrowPosition[3]);
             }
-            else if(!(s_encoderData->b_buttonStatus))
+            else
             {
                 vMenu_moveSelectionArrow(optionMenuArrowPosition[menuSelectState], optionMenuArrowPosition[menuSelectState-1]);
             }
@@ -102,7 +152,6 @@ void vMenu_UpdateOptionMenu(encoder_t * s_encoderData)
         }
         prevEncoderVal = currEncoderVal;
     }
-    s_encoderData->b_buttonStatus = false;
     menuDisplayState = selectedMenuItem;
 }
 
@@ -124,44 +173,27 @@ static void vMenu_moveSelectionArrow(uint8_t nextArrowPositionY, uint8_t prevArr
     {
         prevArrowPositionY = 59;
     }
-    vMenu_DrawString(6, prevArrowPositionY, 0x0000, 0xFFFF, "  ", 1);
-    vMenu_DrawString(6, nextArrowPositionY, 0x0000, 0xFFFF, "->", 1);
+    vMenu_DrawString(6, prevArrowPositionY, 0x0000, ST7735_Color565(198, 237, 175), "  ", 1);
+    vMenu_DrawString(6, nextArrowPositionY, 0x0000, ST7735_Color565(198, 237, 175), "->", 1);
 }
 
 static void vMenu_OpenSetTimeMenu(encoder_t * s_encoderData)
 {
-    uint8_t userSetTime = 0;
-    char * userSetTime_str;
 
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Hour   ", 2);
+    uint8_t userSetHours = xMenu_SetHoursSubMenu(s_encoderData);
+    uint8_t userSetMin = xMenu_SetMinSubMenu(s_encoderData);
+    uint8_t userSetSec = xMenu_SetSecSubMenu(s_encoderData);
 
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            vMenu_intToStr(userSetTime, userSetTime_str, 1);
-
-            if(userSetTime < 10)
-            {
-                vMenu_DrawString(76, 48, 0x0000, 0x0000, " ", 4);
-            }
-            vMenu_DrawString(52, 48, 0xFFFF, 0x0000, userSetTime_str, 4);
-
-            if(++userSetTime > 24)
-            {
-                userSetTime = 0;
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
+    vfinalPrjTime_setSevenSegTime(decimalToHex_t[userSetHours-1], decimalToHex_t[userSetMin-1], decimalToHex_t[userSetSec-1]);
 }
 
-static void vMenu_OpenNotePeriodMenu(encoder_t * s_encoderData)
+static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData)
 {
-    int x;
+    uint8_t userSetMonth = xMenu_SetMonthSubMenu(s_encoderData);
+    uint8_t userSetDay = xMenu_SetDaySubMenu(s_encoderData);
+    uint8_t userSetYear = xMenu_SetYearSubMenu(s_encoderData);
+
+    vfinalPrjTime_setMDYdate(userSetMonth, userSetDay, userSetYear);
 }
 
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData)
@@ -176,30 +208,229 @@ static void vMenu_OpenQuitMenu(encoder_t * s_encoderData)
     s_encoderData->b_buttonStatus = false;
 }
 
-static void vMenu_reverseStr(char * convertedStr, int StrLen)
+static uint8_t xMenu_SetHoursSubMenu(encoder_t * s_encoderData)
 {
-    int i = 0, j = StrLen - 1, temp;
-    while (i < j) {
-        temp = convertedStr[i];
-        convertedStr[i] = convertedStr[j];
-        convertedStr[j] = temp;
-        i++;
-        j--;
+    uint8_t userSetHours = 0;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Hour   ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetHours < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetHours + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetHours >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetHours/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetHours-(userSetHours/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetHours > 24)
+            {
+                userSetHours = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
     }
+    return userSetHours;
 }
 
-static int vMenu_intToStr(int convertValue, char * convertedStr, uint8_t numberBase)
+static uint8_t xMenu_SetMinSubMenu(encoder_t * s_encoderData)
 {
-    int i = 0;
-    while (convertValue) {
-        convertedStr[i++] = (convertValue % 10) + '0';
-        convertValue = convertValue / 10;
-    }
-    while (i < numberBase)
-        convertedStr[i++] = '0';
+    uint8_t userSetMin = 0;
 
-    vMenu_reverseStr(convertedStr, i);
-    convertedStr[i] = '\0';
-    return i;
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, " Minutes  ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetMin < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetMin + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetMin >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetMin/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetMin-(userSetMin/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetMin > 60)
+            {
+                userSetMin = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
+    }
+    return userSetMin;
 }
 
+static uint8_t xMenu_SetSecSubMenu(encoder_t * s_encoderData)
+{
+    uint8_t userSetSec = 0;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, " Seconds  ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetSec < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetSec + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetSec >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetSec/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetSec-(userSetSec/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetSec > 60)
+            {
+                userSetSec = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
+    }
+    vMenu_MainScreen(s_encoderData);
+    menuDisplayState = mainScreen;
+    return userSetSec;
+}
+
+static uint8_t xMenu_SetMonthSubMenu(encoder_t * s_encoderData)
+{
+    uint8_t userSetMonth = 0;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Month   ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetMonth < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetMonth + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetMonth >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetMonth/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetMonth-(userSetMonth/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetMonth > 13)
+            {
+                userSetMonth = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
+    }
+    month = userSetMonth-1;
+    return userSetMonth;
+}
+
+static uint8_t xMenu_SetDaySubMenu(encoder_t * s_encoderData)
+{
+    uint8_t userSetDay = 0;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Day    ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetDay < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetDay + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetDay >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetDay/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetDay-(userSetDay/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetDay > 32)
+            {
+                userSetDay = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
+    }
+    day = userSetDay-1;
+    return userSetDay;
+}
+
+static uint8_t xMenu_SetYearSubMenu(encoder_t * s_encoderData)
+{
+    uint8_t userSetYear = 0;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "  Year    ", 2);
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        currEncoderVal = s_encoderData->encoderVal;
+        if(currEncoderVal != prevEncoderVal)
+        {
+            if(userSetYear < 10)
+            {
+                ST7735_DrawChar(64, 48, userSetYear + 48, 0xFFFF, 0x0000, 4);
+            }
+            else if(userSetYear >= 10)
+            {
+                ST7735_DrawChar(48, 48, (userSetYear/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetYear-(userSetYear/10)*10) + 48, 0xFFFF, 0x0000, 4);
+            }
+
+            if(++userSetYear > 100)
+            {
+                userSetYear = 0;
+                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
+            }
+        }
+        prevEncoderVal = currEncoderVal;
+    }
+    year = userSetYear-1;
+    vMenu_MainScreen(s_encoderData);
+    menuDisplayState = mainScreen;
+    return userSetYear;
+}

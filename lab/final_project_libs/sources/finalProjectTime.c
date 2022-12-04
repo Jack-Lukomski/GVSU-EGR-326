@@ -15,6 +15,8 @@ uint8_t hexToDecRangeTable[5][2] =
  {79, 90},
 };
 
+uint8_t test = 0;
+
 void vfinalPrjTime_Initlize()
 {
     vSPI_Initlize();
@@ -31,6 +33,26 @@ void vfinalPrjTime_Initlize()
     __delay_cycles(30000);
 
     vfinalPrjTime_ClearSegment();
+}
+
+void vfinalPrjTime_setMDYdate(uint8_t userMonth, uint8_t userDay, uint8_t userYear)
+{
+    xI2C_Write(RTC_SLAVE_ADDRESS, MONTH_ADDRESS, userMonth);
+    xI2C_Write(RTC_SLAVE_ADDRESS, DAYS_ADDRESS, userDay);
+    xI2C_Write(RTC_SLAVE_ADDRESS, YEAR_ADDRESS, userYear);
+}
+
+void vfinalPrjTime_getMDYdate(uint8_t MDY_ptr[3])
+{
+    uint8_t I2C_recieveByte;
+
+    xI2C_Read(RTC_SLAVE_ADDRESS, MONTH_ADDRESS, &I2C_recieveByte);
+    test = I2C_recieveByte;
+    MDY_ptr[0] = I2C_recieveByte;
+    xI2C_Read(RTC_SLAVE_ADDRESS, DAYS_ADDRESS, &I2C_recieveByte);
+    MDY_ptr[1] = I2C_recieveByte;
+    xI2C_Read(RTC_SLAVE_ADDRESS, YEAR_ADDRESS, &I2C_recieveByte);
+    MDY_ptr[2] = I2C_recieveByte;
 }
 
 void vfinalPrjTime_setSevenSegTime(uint8_t userHour, uint8_t userMin, uint8_t userSecond)

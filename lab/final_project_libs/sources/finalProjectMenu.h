@@ -14,6 +14,8 @@
 #include "ST7735.h"
 #include "clk48MHz.h"
 #include "encoder.h"
+#include "finalProjectTime.h"
+#include "I2C.h"
 
 typedef enum e_menuTransistionStates
 {
@@ -34,12 +36,17 @@ static void vMenu_moveSelectionArrow(uint8_t nextArrowPositionY, uint8_t prevArr
 
 typedef void(*vMenu_menuOption_ptr)(encoder_t *);
 static void vMenu_OpenSetTimeMenu(encoder_t * s_encoderData);
-static void vMenu_OpenNotePeriodMenu(encoder_t * s_encoderData);
+static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData);
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData);
 static void vMenu_OpenQuitMenu(encoder_t * s_encoderData);
 
-static int vMenu_intToStr(int convertValue, char * convertedStr, uint8_t numberBase);
-static void vMenu_reverseStr(char * convertedStr, int StrLen);
+static uint8_t xMenu_SetHoursSubMenu(encoder_t * s_encoderData);
+static uint8_t xMenu_SetMinSubMenu(encoder_t * s_encoderData);
+static uint8_t xMenu_SetSecSubMenu(encoder_t * s_encoderData);
+
+static uint8_t xMenu_SetMonthSubMenu(encoder_t * s_encoderData);
+static uint8_t xMenu_SetDaySubMenu(encoder_t * s_encoderData);
+static uint8_t xMenu_SetYearSubMenu(encoder_t * s_encoderData);
 
 void vMenu_UpdateScreen(encoder_t * s_encoderData);
 
