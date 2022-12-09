@@ -16,6 +16,7 @@
 #include "HC-SR04.h"
 #include "speakerSound.h"
 #include "stepperMotorSam.h"
+#include "I2C.h"
 
 #define R BIT0
 #define G BIT1

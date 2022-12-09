@@ -112,6 +112,7 @@ void postMusicDisable(void)
 
 void vAdjustVolume_IQR(void)
 {
+    xI2C_Read(EEPROM_SLAVE_ADDRESS, 3, &CurrentVolume8Scale);
     __delay_cycles(300000);
        if(xReadInputs_read(s_VolUpButton))
        {
@@ -144,6 +145,7 @@ void vAdjustVolume_IQR(void)
            }
        vSpeakerSound_AdjustNoteVol(noteCycles, noteCycles/speakerVolume);
        }
+       xI2C_Write(EEPROM_SLAVE_ADDRESS, 3, CurrentVolume8Scale);
 }
 
 void vTimerA_InteruptHelper(void)

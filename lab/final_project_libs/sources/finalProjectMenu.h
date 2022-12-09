@@ -27,6 +27,12 @@ typedef enum e_menuTransistionStates
     selectedMenuItem,
 }e_menuTransistionStates;
 
+typedef struct noteColorValue_t
+{
+    char note;
+    uint16_t RGB_Color;
+}noteColorValue_t;
+
 void vMenu_Init(void);
 
 typedef void(*vMenu_menuStateMachiene_ptr)(encoder_t * s_encoderData);
@@ -50,6 +56,8 @@ static uint8_t xMenu_SetSecSubMenu(encoder_t * s_encoderData);
 static uint8_t xMenu_SetMonthSubMenu(encoder_t * s_encoderData);
 static uint8_t xMenu_SetDaySubMenu(encoder_t * s_encoderData);
 static uint8_t xMenu_SetYearSubMenu(encoder_t * s_encoderData);
+
+static uint16_t xMenu_NoteColorLookUpTbl(char currentNote);
 
 void vMenu_UpdateScreen(encoder_t * s_encoderData);
 

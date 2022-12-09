@@ -31,6 +31,7 @@ void main(void){
     vSysTick_IntteruptInit(5000);
 
 	NVIC_EnableIRQ(PORT4_IRQn);
+	NVIC_EnableIRQ(WDT_A_IRQn);
 	__enable_interrupt();
 
 	while(1)
@@ -60,5 +61,10 @@ void PORT2_IRQHandler(void)
 {
     vAdjustVolume_IQR();
     P2->IFG = 0;
+}
+
+void WDT_A_IRQHandler()
+{
+    WDT_A->CTL = 0;
 }
 

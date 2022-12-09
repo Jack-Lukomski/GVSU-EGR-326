@@ -10,6 +10,16 @@ uint8_t month, day, year;
 uint8_t date_ptr[3];
 uint8_t mainMenuDateYPosition = 150;
 
+static const noteColorValue_t noteToColor_t[6] =
+{
+ {.note = 'A', .RGB_Color = ST7735_RED},
+ {.note = 'B', .RGB_Color = ST7735_CYAN},
+ {.note = 'C', .RGB_Color = ST7735_YELLOW},
+ {.note = 'D', .RGB_Color = ST7735_GREEN},
+ {.note = 'E', .RGB_Color = ST7735_BLUE},
+ {.note = 'F', .RGB_Color = ST7735_MAGENTA},
+};
+
 static const uint8_t decimalToHex_t[60] =
 {
  0x00, 0x01, 0x02, 0x03, 0x4, 0x05, 0x06,
@@ -63,6 +73,7 @@ void vMenu_UpdateScreen(encoder_t * s_encoderData)
 
     if(s_encoderData->b_buttonStatus && menuDisplayState == selectedMenuItem)
     {
+        WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;     // stop watchdog timer
         s_encoderData->b_buttonStatus = false;
         __delay_cycles(300000);
         openMenuSelect_t[menuSelectState](s_encoderData);
@@ -127,6 +138,7 @@ void vMenu_MainScreen(encoder_t * s_encoderData)
 
 void vMenu_FillOptionMenu(encoder_t * s_encoderData)
 {
+    WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_IS_1 | WDT_A_CTL_SSEL__SMCLK |  WDT_A_CTL_CNTCL | WDT_A_CTL_TMSEL;
     ST7735_FillScreen(ST7735_Color565(198, 237, 175));
     vMenu_DrawString(0, 2, 0x0000, ST7735_Color565(198, 237, 175), "   Function Select   ", 1);
     ST7735_DrawFastHLine(0, 15, 128, 0x0000);
@@ -212,33 +224,52 @@ static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData)
 {
     char currNote;
     char prevNote;
-
-    uint8_t currentVolumeLevel;
+    uint8_t currVolume;
 
     ST7735_FillScreen(0x0000);
     vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "     Play Music      ", 1);
     vMenu_DrawString(0, 136, 0xFFFF,0x0000,"   (Press To Quit)   ", 1);
+    vMenu_DrawString(0, 120, 0xFFFF,0x0000,"   Volume:", 1);
 
     preMusicInit();
     RGB_pin_initialize();
     s_encoderData->b_buttonStatus = false;
+    xI2C_Read(EEPROM_SLAVE_ADDRESS, 3, &currVolume);
+
 
     while(!(s_encoderData->b_buttonStatus))
     {
         vMusicDriver();
-//        currentVolumeLevel = CurrentVolume8Scale;
-//        currNote = CurrNotePlaying;
-//        if(currNote != prevNote)
-//        {
-//            ST7735_DrawChar(64-8, 48+16, CurrNotePlaying, 0xFFFF, 0x0000, 4);
-//        }
-//        prevNote = currNote;
+        currNote = CurrNotePlaying;
+        if(currNote != prevNote)
+        {
+            ST7735_DrawChar(64-8, 48+16, CurrNotePlaying, xMenu_NoteColorLookUpTbl(currNote), 0x0000, 4);
+        }
+        prevNote = currNote;
+        xI2C_Read(EEPROM_SLAVE_ADDRESS, 3, &currVolume);
+        __delay_cycles(3000000);
+        ST7735_DrawCharS(64, 120, currVolume + 48, 0xFFFF, 0x0000, 1);
     }
     postMusicDisable();
 
     vMenu_MainScreen(NULL);
     menuDisplayState = mainScreen;
     s_encoderData->b_buttonStatus = false;
+}
+
+static uint16_t xMenu_NoteColorLookUpTbl(char currentNote)
+{
+    uint8_t numNotes;
+    uint16_t colorRetVal;
+
+    for(numNotes = 0; numNotes < 6; numNotes++)
+    {
+        if(noteToColor_t[numNotes].note == currentNote)
+        {
+            colorRetVal = noteToColor_t[numNotes].RGB_Color;
+        }
+    }
+    return colorRetVal;
 }
 
 static void vMenu_OpenQuitMenu(encoder_t * s_encoderData)
