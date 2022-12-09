@@ -25,10 +25,9 @@ static const port4GPIO_t s_encoderTable[3] =
 void main(void){
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 	vEncoder_Init(s_encoderTable);
-    vMenu_Init();
+	vMenu_Init();
     vfinalPrjTime_Initlize();
-    vfinalPrjTime_setSevenSegTime(11, 59, 0);
-    vfinalPrjTime_setMDYdate(2, 1, 1);
+    vfinalPrjTime_setMDYdate(1, 1, 1);
     vSysTick_IntteruptInit(5000);
 
 	NVIC_EnableIRQ(PORT4_IRQn);

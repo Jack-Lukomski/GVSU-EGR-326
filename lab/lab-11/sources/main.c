@@ -5,6 +5,8 @@
 
 #define RTC_SLAVE_ADDRESS 0x68
 #define EEPROM_SLAVE_ADDRESS 0b1010111
+uint8_t test;
+uint8_t count = 3;
 
 uint8_t emptyByte[8] = {0, 0, 0, 0, 0, 0, 0, 0};
 uint8_t dateRTC_Data[5] = {0x12, 0x03, 0x04, 0x45, 0x01};
@@ -30,22 +32,26 @@ void main(void)
 {
     vMain_InitliePerfs();
     vMain_SetTimeRTC();
+    //xI2C_Write(EEPROM_SLAVE_ADDRESS, 4, 10);
     while(1)
     {
-        if(xReadInputs_ReadPin(s_StoreTimeButton))
-        {
-            vMain_StoreRTCTime();
-        }
+        xI2C_Read(EEPROM_SLAVE_ADDRESS, 3, &test);
+        printf("%d\n", test);
 
-        if(xReadInputs_ReadPin(s_PrintTimeButton))
-        {
-            vMain_printTime();
-        }
-
-        if(!(P1->IN & BIT(1)))
-        {
-            vMain_EraseEEPROM();
-        }
+//        if(xReadInputs_ReadPin(s_StoreTimeButton))
+//        {
+//            vMain_StoreRTCTime();
+//        }
+//
+//        if(xReadInputs_ReadPin(s_PrintTimeButton))
+//        {
+//            vMain_printTime();
+//        }
+//
+//        if(!(P1->IN & BIT(1)))
+//        {
+//            vMain_EraseEEPROM();
+//        }
     }
 }
 
@@ -53,9 +59,9 @@ void vMain_InitliePerfs(void)
 {
     WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD; // stop watchdog timer
     vI2C_Initlize(); // Initlize I2C
-    vpinsInit_GPIO(&s_StoreTimeButton, pin4, input, pullup, disableInterrupt);
-    vpinsInit_GPIO(&s_PrintTimeButton, pin6, input, pullup, disableInterrupt);
-    vMain_InitOnBoardButton();
+//    vpinsInit_GPIO(&s_StoreTimeButton, pin4, input, pullup, disableInterrupt);
+//    vpinsInit_GPIO(&s_PrintTimeButton, pin6, input, pullup, disableInterrupt);
+//    vMain_InitOnBoardButton();
 }
 
 void vMain_SetTimeRTC(void)

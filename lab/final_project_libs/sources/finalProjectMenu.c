@@ -78,10 +78,17 @@ void vMenu_Init(void)
 
 void vMenu_MainScreen(encoder_t * s_encoderData)
 {
-//    uint8_t currentDate_ptr[3];
-//    vfinalPrjTime_getMDYdate(currentDate_ptr);
-
     uint8_t offSet = 25;
+//
+//    vI2C_Initlize();
+//    xI2C_Read(RTC_SLAVE_ADDRESS, MONTH_ADDRESS, &month);
+//    xI2C_Read(RTC_SLAVE_ADDRESS, DAYS_ADDRESS, &day);
+//    xI2C_Read(RTC_SLAVE_ADDRESS, YEAR_ADDRESS, &year);
+//    vI2C_Initlize();
+//
+//    month--;
+//    day--;
+//    year--;
 
     ST7735_FillScreen(0x0000);
     vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "   Sound Generator   ", 1);
@@ -184,7 +191,9 @@ static void vMenu_OpenSetTimeMenu(encoder_t * s_encoderData)
     uint8_t userSetMin = xMenu_SetMinSubMenu(s_encoderData);
     uint8_t userSetSec = xMenu_SetSecSubMenu(s_encoderData);
 
+    vfinalPrjTime_Initlize();
     vfinalPrjTime_setSevenSegTime(decimalToHex_t[userSetHours-1], decimalToHex_t[userSetMin-1], decimalToHex_t[userSetSec-1]);
+    vSysTick_IntteruptInit(5000);
 }
 
 static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData)
@@ -192,8 +201,11 @@ static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData)
     uint8_t userSetMonth = xMenu_SetMonthSubMenu(s_encoderData);
     uint8_t userSetDay = xMenu_SetDaySubMenu(s_encoderData);
     uint8_t userSetYear = xMenu_SetYearSubMenu(s_encoderData);
-
+    vfinalPrjTime_Initlize();
     vfinalPrjTime_setMDYdate(userSetMonth, userSetDay, userSetYear);
+    vSysTick_IntteruptInit(5000);
+
+    vMenu_MainScreen(s_encoderData);
 }
 
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData)

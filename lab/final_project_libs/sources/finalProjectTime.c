@@ -105,6 +105,8 @@ void vfinalPrjTime_UpdateSegmentTime()
     xI2C_Read(RTC_SLAVE_ADDRESS, MINUETS_ADDRESS, &min);
     xI2C_Read(RTC_SLAVE_ADDRESS, SECONDS_ADDRESS, &sec);
 
+    test = hour;
+
     hour = xfinalPrjTime_HexToDec(hour);
     min = xfinalPrjTime_HexToDec(min);
     sec = xfinalPrjTime_HexToDec(sec);
