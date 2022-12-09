@@ -16,6 +16,9 @@
 #include "encoder.h"
 #include "finalProjectTime.h"
 #include "I2C.h"
+#include "SamsSonarLib.h"
+
+#define MSP_SALVE_ADDRESS 0x48
 
 typedef enum e_menuTransistionStates
 {

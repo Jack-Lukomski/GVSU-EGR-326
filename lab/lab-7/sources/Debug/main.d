@@ -28,6 +28,7 @@ main.obj: ../stepperMotor.h
 main.obj: ../systick.h
 main.obj: ../readInputs.h
 main.obj: C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h
+main.obj: ../ST7735.h
 
 ../main.c:
 
@@ -84,4 +85,6 @@ C:/ti/ccs1200/ccs/ccs_base/arm/include/system_msp432p401r.h:
 ../readInputs.h:
 
 C:/ti/ccs1200/ccs/tools/compiler/ti-cgt-arm_20.2.7.LTS/include/stdbool.h:
+
+../ST7735.h:
 

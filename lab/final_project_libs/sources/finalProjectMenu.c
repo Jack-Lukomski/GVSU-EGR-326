@@ -7,6 +7,8 @@
  */
 
 uint8_t month, day, year;
+uint8_t date_ptr[3];
+uint8_t mainMenuDateYPosition = 150;
 
 static const uint8_t decimalToHex_t[60] =
 {
@@ -79,50 +81,48 @@ void vMenu_Init(void)
 void vMenu_MainScreen(encoder_t * s_encoderData)
 {
     uint8_t offSet = 25;
-//
-//    vI2C_Initlize();
-//    xI2C_Read(RTC_SLAVE_ADDRESS, MONTH_ADDRESS, &month);
-//    xI2C_Read(RTC_SLAVE_ADDRESS, DAYS_ADDRESS, &day);
-//    xI2C_Read(RTC_SLAVE_ADDRESS, YEAR_ADDRESS, &year);
-//    vI2C_Initlize();
-//
-//    month--;
-//    day--;
-//    year--;
+
+//    vfinalPrjTime_getMDYdate(date_ptr);
+//    month = date_ptr[0];
+//    day = date_ptr[1];
+//    year = date_ptr[2];
 
     ST7735_FillScreen(0x0000);
     vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "   Sound Generator   ", 1);
 
+    vMenu_DrawString(0, 70, 0xFFFF, 0x0000,"(Press To Enter Menu)", 1);
+    vMenu_DrawString(0, 128, 0xFFFF, 0x0000,"    Current Date:    ", 1);
+
     if(month < 10)
     {
-        ST7735_DrawChar(0+offSet, 140, '0', 0xFFFF, 0x0000, 1);
-        ST7735_DrawChar(8+offSet, 140, month + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(0+offSet, mainMenuDateYPosition, '0', 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(8+offSet, mainMenuDateYPosition, month + 48, 0xFFFF, 0x0000, 1);
     }
     else
     {
-        ST7735_DrawChar(0+offSet, 140, month/10 + 48, 0xFFFF, 0x0000, 1);
-        ST7735_DrawChar(8+offSet, 140, month - ((month/10)*10) + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(0+offSet, mainMenuDateYPosition, month/10 + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(8+offSet, mainMenuDateYPosition, month - ((month/10)*10) + 48, 0xFFFF, 0x0000, 1);
     }
 
-    ST7735_DrawChar(16+offSet, 140, '/', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(16+offSet, mainMenuDateYPosition, '/', 0xFFFF, 0x0000, 1);
 
     if(day < 10)
     {
-        ST7735_DrawChar(24+offSet, 140, '0', 0xFFFF, 0x0000, 1);
-        ST7735_DrawChar(32+offSet, 140, day + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(24+offSet, mainMenuDateYPosition, '0', 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(32+offSet, mainMenuDateYPosition, day + 48, 0xFFFF, 0x0000, 1);
     }
     else
     {
-        ST7735_DrawChar(24+offSet, 140, day/10 + 48, 0xFFFF, 0x0000, 1);
-        ST7735_DrawChar(32+offSet, 140, day - ((day/10)*10) + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(24+offSet, mainMenuDateYPosition, day/10 + 48, 0xFFFF, 0x0000, 1);
+        ST7735_DrawChar(32+offSet, mainMenuDateYPosition, day - ((day/10)*10) + 48, 0xFFFF, 0x0000, 1);
     }
 
-    ST7735_DrawChar(40+offSet, 140, '/', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(40+offSet, mainMenuDateYPosition, '/', 0xFFFF, 0x0000, 1);
 
-    ST7735_DrawChar(48+offSet, 140, '2', 0xFFFF, 0x0000, 1);
-    ST7735_DrawChar(56+offSet, 140, '0', 0xFFFF, 0x0000, 1);
-    ST7735_DrawChar(64+offSet, 140, year/10 + 48, 0xFFFF, 0x0000, 1);
-    ST7735_DrawChar(72+offSet, 140, year - ((year/10)*10) + 48, 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(48+offSet, mainMenuDateYPosition, '2', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(56+offSet, mainMenuDateYPosition, '0', 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(64+offSet, mainMenuDateYPosition, year/10 + 48, 0xFFFF, 0x0000, 1);
+    ST7735_DrawChar(72+offSet, mainMenuDateYPosition, year - ((year/10)*10) + 48, 0xFFFF, 0x0000, 1);
 }
 
 void vMenu_FillOptionMenu(encoder_t * s_encoderData)
@@ -210,7 +210,35 @@ static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData)
 
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData)
 {
-    int x;
+    char currNote;
+    char prevNote;
+
+    uint8_t currentVolumeLevel;
+
+    ST7735_FillScreen(0x0000);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "     Play Music      ", 1);
+    vMenu_DrawString(0, 136, 0xFFFF,0x0000,"   (Press To Quit)   ", 1);
+
+    preMusicInit();
+    RGB_pin_initialize();
+    s_encoderData->b_buttonStatus = false;
+
+    while(!(s_encoderData->b_buttonStatus))
+    {
+        vMusicDriver();
+//        currentVolumeLevel = CurrentVolume8Scale;
+//        currNote = CurrNotePlaying;
+//        if(currNote != prevNote)
+//        {
+//            ST7735_DrawChar(64-8, 48+16, CurrNotePlaying, 0xFFFF, 0x0000, 4);
+//        }
+//        prevNote = currNote;
+    }
+    postMusicDisable();
+
+    vMenu_MainScreen(NULL);
+    menuDisplayState = mainScreen;
+    s_encoderData->b_buttonStatus = false;
 }
 
 static void vMenu_OpenQuitMenu(encoder_t * s_encoderData)

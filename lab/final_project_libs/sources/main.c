@@ -12,6 +12,7 @@
 #include "SPI.h"
 #include "finalProjectTime.h"
 #include "systick.h"
+#include "SamsSonarLib.h"
 
 encoder_t encoder;
 
@@ -21,13 +22,12 @@ static const port4GPIO_t s_encoderTable[3] =
  {.e_IO = input4, .e_IOpinNumber = pin4_5, .e_GPIOType = pullup4, .e_Interrupt = enableInterrupt4}, // Direction DT
  {.e_IO = input4, .e_IOpinNumber = pin4_6, .e_GPIOType = pullup4, .e_Interrupt = disableInterrupt4}, // Direction CLK
 };
-
 void main(void){
 	WDT_A->CTL = WDT_A_CTL_PW | WDT_A_CTL_HOLD;		// stop watchdog timer
 	vEncoder_Init(s_encoderTable);
 	vMenu_Init();
     vfinalPrjTime_Initlize();
-    vfinalPrjTime_setMDYdate(1, 1, 1);
+    vfinalPrjTime_setMDYdate(0, 0, 0);
     vSysTick_IntteruptInit(5000);
 
 	NVIC_EnableIRQ(PORT4_IRQn);
@@ -49,3 +49,16 @@ void SysTick_Handler(void)
 {
     vfinalPrjTime_UpdateSegmentTime();
 }
+
+void TA1_N_IRQHandler(void)
+{
+    vTimerA_InteruptHelper();
+    TIMER_A1->CTL &=~ (BIT0);
+}
+
+void PORT2_IRQHandler(void)
+{
+    vAdjustVolume_IQR();
+    P2->IFG = 0;
+}
+
