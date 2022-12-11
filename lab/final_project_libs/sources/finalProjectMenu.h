@@ -49,9 +49,7 @@ static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData);
 static void vMenu_OpenPlayNoteMenu(encoder_t * s_encoderData);
 static void vMenu_OpenQuitMenu(encoder_t * s_encoderData);
 
-static uint8_t xMenu_SetHoursSubMenu(encoder_t * s_encoderData);
-static uint8_t xMenu_SetMinSubMenu(encoder_t * s_encoderData);
-static uint8_t xMenu_SetSecSubMenu(encoder_t * s_encoderData);
+static uint8_t xMenu_SetDateTimeSubMenus(encoder_t * s_encoderData, char ** displayString, char ** titleString, uint8_t maxLimit);
 
 static uint8_t xMenu_SetMonthSubMenu(encoder_t * s_encoderData);
 static uint8_t xMenu_SetDaySubMenu(encoder_t * s_encoderData);

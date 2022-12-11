@@ -47,15 +47,13 @@ static const vMenu_menuStateMachiene_ptr LCD_StateM_t[3] =
  vMenu_FillOptionMenu,
 };
 
-bool tempMenuFlag = false; // Remove
+
 uint8_t currEncoderVal = 0;
 uint8_t prevEncoderVal = 0;
-
 uint8_t menuSelectState = 0;
-e_menuTransistionStates menuDisplayState = mainScreen;
 uint8_t optionMenuArrowPosition[4] = {20, 33, 46, 59};
 
-
+e_menuTransistionStates menuDisplayState = mainScreen;
 
 void vMenu_UpdateScreen(encoder_t * s_encoderData)
 {
@@ -92,11 +90,6 @@ void vMenu_Init(void)
 void vMenu_MainScreen(encoder_t * s_encoderData)
 {
     uint8_t offSet = 25;
-
-//    vfinalPrjTime_getMDYdate(date_ptr);
-//    month = date_ptr[0];
-//    day = date_ptr[1];
-//    year = date_ptr[2];
 
     ST7735_FillScreen(0x0000);
     vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "   Sound Generator   ", 1);
@@ -199,9 +192,9 @@ static void vMenu_moveSelectionArrow(uint8_t nextArrowPositionY, uint8_t prevArr
 static void vMenu_OpenSetTimeMenu(encoder_t * s_encoderData)
 {
 
-    uint8_t userSetHours = xMenu_SetHoursSubMenu(s_encoderData);
-    uint8_t userSetMin = xMenu_SetMinSubMenu(s_encoderData);
-    uint8_t userSetSec = xMenu_SetSecSubMenu(s_encoderData);
+    uint8_t userSetHours = xMenu_SetDateTimeSubMenus(s_encoderData, "   Hour   ", "      Set Time       ", 24);
+    uint8_t userSetMin = xMenu_SetDateTimeSubMenus(s_encoderData, " Minutes  ", "      Set Time       ", 60);
+    uint8_t userSetSec = xMenu_SetDateTimeSubMenus(s_encoderData, " Seconds  ", "      Set Time       ", 60);
 
     vfinalPrjTime_Initlize();
     vfinalPrjTime_setSevenSegTime(decimalToHex_t[userSetHours-1], decimalToHex_t[userSetMin-1], decimalToHex_t[userSetSec-1]);
@@ -210,9 +203,10 @@ static void vMenu_OpenSetTimeMenu(encoder_t * s_encoderData)
 
 static void vMenu_OpenSetDateMenu(encoder_t * s_encoderData)
 {
-    uint8_t userSetMonth = xMenu_SetMonthSubMenu(s_encoderData);
-    uint8_t userSetDay = xMenu_SetDaySubMenu(s_encoderData);
-    uint8_t userSetYear = xMenu_SetYearSubMenu(s_encoderData);
+    uint8_t userSetMonth = xMenu_SetDateTimeSubMenus(s_encoderData, " Month  ", "      Set Time       ", 13);
+    uint8_t userSetDay = xMenu_SetDateTimeSubMenus(s_encoderData, " Day  ", "      Set Time       ", 32);
+    uint8_t userSetYear = xMenu_SetDateTimeSubMenus(s_encoderData, " Year  ", "      Set Time       ", 100);
+
     vfinalPrjTime_Initlize();
     vfinalPrjTime_setMDYdate(userSetMonth, userSetDay, userSetYear);
     vSysTick_IntteruptInit(5000);
@@ -279,13 +273,13 @@ static void vMenu_OpenQuitMenu(encoder_t * s_encoderData)
     s_encoderData->b_buttonStatus = false;
 }
 
-static uint8_t xMenu_SetHoursSubMenu(encoder_t * s_encoderData)
+static uint8_t xMenu_SetDateTimeSubMenus(encoder_t * s_encoderData, char ** displayString, char ** titleString, uint8_t maxLimit)
 {
-    uint8_t userSetHours = 0;
+    uint8_t userSetValue = 0;
 
     ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Hour   ", 2);
+    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, titleString, 1);
+    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, displayString, 2);
     s_encoderData->b_buttonStatus = false;
 
     while(!(s_encoderData->b_buttonStatus))
@@ -293,215 +287,24 @@ static uint8_t xMenu_SetHoursSubMenu(encoder_t * s_encoderData)
         currEncoderVal = s_encoderData->encoderVal;
         if(currEncoderVal != prevEncoderVal)
         {
-            if(userSetHours < 10)
+            if(userSetValue < 10)
             {
-                ST7735_DrawChar(64, 48, userSetHours + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(64, 48, userSetValue + 48, 0xFFFF, 0x0000, 4);
             }
-            else if(userSetHours >= 10)
+            else if(userSetValue >= 10)
             {
-                ST7735_DrawChar(48, 48, (userSetHours/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetHours-(userSetHours/10)*10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48, 48, (userSetValue/10) + 48, 0xFFFF, 0x0000, 4);
+                ST7735_DrawChar(48+24, 48, (userSetValue-(userSetValue/10)*10) + 48, 0xFFFF, 0x0000, 4);
             }
 
-            if(++userSetHours > 24)
+            if(++userSetValue > maxLimit)
             {
-                userSetHours = 0;
+                userSetValue = 0;
                 ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
                 ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
             }
         }
         prevEncoderVal = currEncoderVal;
     }
-    return userSetHours;
-}
-
-static uint8_t xMenu_SetMinSubMenu(encoder_t * s_encoderData)
-{
-    uint8_t userSetMin = 0;
-
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, " Minutes  ", 2);
-    s_encoderData->b_buttonStatus = false;
-
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            if(userSetMin < 10)
-            {
-                ST7735_DrawChar(64, 48, userSetMin + 48, 0xFFFF, 0x0000, 4);
-            }
-            else if(userSetMin >= 10)
-            {
-                ST7735_DrawChar(48, 48, (userSetMin/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetMin-(userSetMin/10)*10) + 48, 0xFFFF, 0x0000, 4);
-            }
-
-            if(++userSetMin > 60)
-            {
-                userSetMin = 0;
-                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
-    return userSetMin;
-}
-
-static uint8_t xMenu_SetSecSubMenu(encoder_t * s_encoderData)
-{
-    uint8_t userSetSec = 0;
-
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Time       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, " Seconds  ", 2);
-    s_encoderData->b_buttonStatus = false;
-
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            if(userSetSec < 10)
-            {
-                ST7735_DrawChar(64, 48, userSetSec + 48, 0xFFFF, 0x0000, 4);
-            }
-            else if(userSetSec >= 10)
-            {
-                ST7735_DrawChar(48, 48, (userSetSec/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetSec-(userSetSec/10)*10) + 48, 0xFFFF, 0x0000, 4);
-            }
-
-            if(++userSetSec > 60)
-            {
-                userSetSec = 0;
-                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
-    vMenu_MainScreen(s_encoderData);
-    menuDisplayState = mainScreen;
-    return userSetSec;
-}
-
-static uint8_t xMenu_SetMonthSubMenu(encoder_t * s_encoderData)
-{
-    uint8_t userSetMonth = 0;
-
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Month   ", 2);
-    s_encoderData->b_buttonStatus = false;
-
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            if(userSetMonth < 10)
-            {
-                ST7735_DrawChar(64, 48, userSetMonth + 48, 0xFFFF, 0x0000, 4);
-            }
-            else if(userSetMonth >= 10)
-            {
-                ST7735_DrawChar(48, 48, (userSetMonth/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetMonth-(userSetMonth/10)*10) + 48, 0xFFFF, 0x0000, 4);
-            }
-
-            if(++userSetMonth > 13)
-            {
-                userSetMonth = 0;
-                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
-    month = userSetMonth-1;
-    return userSetMonth;
-}
-
-static uint8_t xMenu_SetDaySubMenu(encoder_t * s_encoderData)
-{
-    uint8_t userSetDay = 0;
-
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "   Day    ", 2);
-    s_encoderData->b_buttonStatus = false;
-
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            if(userSetDay < 10)
-            {
-                ST7735_DrawChar(64, 48, userSetDay + 48, 0xFFFF, 0x0000, 4);
-            }
-            else if(userSetDay >= 10)
-            {
-                ST7735_DrawChar(48, 48, (userSetDay/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetDay-(userSetDay/10)*10) + 48, 0xFFFF, 0x0000, 4);
-            }
-
-            if(++userSetDay > 32)
-            {
-                userSetDay = 0;
-                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
-    day = userSetDay-1;
-    return userSetDay;
-}
-
-static uint8_t xMenu_SetYearSubMenu(encoder_t * s_encoderData)
-{
-    uint8_t userSetYear = 0;
-
-    ST7735_FillScreen(0x0000);
-    vMenu_DrawString(0, 2, 0x0000, 0xFFFF, "      Set Date       ", 1);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "          ", 2);
-    vMenu_DrawString(0, 20, 0x0FF0, 0x0000, "  Year    ", 2);
-    s_encoderData->b_buttonStatus = false;
-
-    while(!(s_encoderData->b_buttonStatus))
-    {
-        currEncoderVal = s_encoderData->encoderVal;
-        if(currEncoderVal != prevEncoderVal)
-        {
-            if(userSetYear < 10)
-            {
-                ST7735_DrawChar(64, 48, userSetYear + 48, 0xFFFF, 0x0000, 4);
-            }
-            else if(userSetYear >= 10)
-            {
-                ST7735_DrawChar(48, 48, (userSetYear/10) + 48, 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, (userSetYear-(userSetYear/10)*10) + 48, 0xFFFF, 0x0000, 4);
-            }
-
-            if(++userSetYear > 100)
-            {
-                userSetYear = 0;
-                ST7735_DrawChar(48, 48, ' ', 0xFFFF, 0x0000, 4);
-                ST7735_DrawChar(48+24, 48, ' ', 0xFFFF, 0x0000, 4);
-            }
-        }
-        prevEncoderVal = currEncoderVal;
-    }
-    year = userSetYear-1;
-    vMenu_MainScreen(s_encoderData);
-    menuDisplayState = mainScreen;
-    return userSetYear;
+    return userSetValue;
 }
